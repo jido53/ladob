@@ -12,9 +12,20 @@ class OrganismoController extends AbstractController
       /**
      * Matches /organismo exactly
      *
-     * @Route("/organismo")
+     * @Route("/organismos", name="org_list")
      */
     public function list()
+    {
+        $organismos = $this->getDoctrine()->getRepository(Organismo::class)->findAll();
+
+        return $this->render('organismo/list.html.twig', ['organismos' => $organismos]);
+    }
+          /**
+     * Matches /organismo exactly
+     *
+     * @Route("/defensoriaspcyf")
+     */
+    public function listpcyf()
     {
         $organismos = $this->getDoctrine()->getRepository(Organismo::class)->findAll();
 
@@ -25,7 +36,7 @@ class OrganismoController extends AbstractController
       */
     public function show($org_id)
     {
-        $id= 198;      
+             
         $organismo = $this->getDoctrine()
         ->getRepository(Organismo::class)
         ->find($org_id);
