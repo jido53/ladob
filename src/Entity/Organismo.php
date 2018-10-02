@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -32,6 +34,16 @@ class Organismo
      * @ORM\Column(type="string", length=255)
      */
     private $org_clase;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Dep", mappedBy="org_id")
+     */
+    private $deps;
+
+    public function __construct()
+    {
+        $this->deps = new ArrayCollection();
+    }
 
     public function getOrgId(): int
     {
@@ -70,6 +82,37 @@ class Organismo
     public function setOrgClase(string $org_clase): self
     {
         $this->org_clase = $org_clase;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Dep[]
+     */
+    public function getDeps(): Collection
+    {
+        return $this->deps;
+    }
+
+    public function addDep(Dep $dep): self
+    {
+        if (!$this->deps->contains($dep)) {
+            $this->deps[] = $dep;
+            $dep->setOrgId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDep(Dep $dep): self
+    {
+        if ($this->deps->contains($dep)) {
+            $this->deps->removeElement($dep);
+            // set the owning side to null (unless already changed)
+            if ($dep->getOrgId() === $this) {
+                $dep->setOrgId(null);
+            }
+        }
 
         return $this;
     }

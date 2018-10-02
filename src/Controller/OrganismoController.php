@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\Organismo;
+use App\Entity\Dep;
 
 class OrganismoController extends AbstractController
 {
@@ -40,14 +41,16 @@ class OrganismoController extends AbstractController
         $organismo = $this->getDoctrine()
         ->getRepository(Organismo::class)
         ->find($org_id);
+        $deps = $organismo->getDeps();
+        $dep = $this->getDoctrine()->getRepository(Dep::class)->find(188);
 
     if (!$organismo) {
         throw $this->createNotFoundException(
             'No organismo found for id '.$id
         );
     }
-    
-    return new Response('Check out this great organismo: '.$organismo->getOrgDescr());
+    return $this->render('organismo/detail.html.twig', ['organismo' => $organismo, 'deps'=>$dep]);
+    //return new Response('Check out this great organismo: '.$organismo->getOrgDescr());
       
     // or render a template
     // in the template, print things with {{ product.name }}

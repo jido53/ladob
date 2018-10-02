@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Listado de Dependencias{% endblock %}
+{% block body_centro %}
+<h1>Listado de Dependencias</h1>
+
+
+
+              <table class="table" id="listado">
+			  <thead>
+			    <tr>
+			      <th scope="col">ID</th>
+			      <th scope="col">Nombre</th>
+			      <th scope="col">Organismo</th>
+			      
+			    </tr>
+			  </thead>
+			  <tbody>
+			    
+			    {% for dep in dependencias %}
+                <tr>
+			      <td><a href="{{ path('dep_show', {'dep_id': dep.getDepId()}) }}">{{ dep.getDepId() }}</a></td>
+			      <td>{{ dep.getDepDescorta() }}</td>
+			      <td>{{ dep.getOrgId().getOrgDescr() }}</td>
+			      
+			    </tr>
+			    {% endfor %}
+			  </tbody>
+			</table>
+            
+        
+{% endblock %}

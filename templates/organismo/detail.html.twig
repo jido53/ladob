@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Detalle de Organismo{% endblock %}
+{% block body_centro %}
+<h1>Detalle de Organismo</h1>
+
+
+         
+
+			<div class="card">
+				<h5 class="card-header">
+					{{ organismo.getOrgDescr() }}
+				</h5>
+				<div class="card-body">
+				{{ dump(deps) }}
+				{#
+				 {% for dep in deps %}
+					<p class="card-text">
+					   {{ dep.getDepDescorta() }}
+					</p>
+				 {% endfor %}
+				 #}
+				</div>
+				<div class="card-footer">
+					{{ organismo.getOrgMail()|default('') }}
+				</div>
+			</div>
+
+{% endblock %}
