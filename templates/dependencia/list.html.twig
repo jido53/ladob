@@ -1,5 +1,12 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+
+{{ parent() }}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" >
+
+{% endblock %}
 {% block title %}Listado de Dependencias{% endblock %}
 {% block body_centro %}
 <h1>Listado de Dependencias</h1>
@@ -34,6 +41,13 @@
 {% block javascripts %}
 
 {{ parent() }}
+
+<script>
+$(document).ready(function() {
+    $('#listado').DataTable();
+} );
+</script>
+
 
 
 
