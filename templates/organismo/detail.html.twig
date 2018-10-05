@@ -12,14 +12,57 @@
 					{{ organismo.getOrgDescr() }}
 				</h5>
 				<div class="card-body">
-				{{ dump(deps) }}
-				{#
-				 {% for dep in deps %}
-					<p class="card-text">
-					   {{ dep.getDepDescorta() }}
-					</p>
-				 {% endfor %}
-				 #}
+
+				<div class="row">
+					<div class="col-md-6">
+						 
+						<button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#deps">
+	 					 Dependencias <span class="badge badge-light">{{deps|length}}</span>
+						</button>
+					
+						<ul class="list-group collapse" id="deps">
+							{% for dep in deps %}
+						 	 <li class="list-group-item" >
+						 	 <a href="{{ path('dep_show', {'dep_id':  dep.dep_id }) }}">
+						 	 {{ dep.dep_descr }}</a>
+						 	 </li>
+						  	{% endfor %}
+						</ul>
+					</div>
+					<div class="col-md-6">
+						 
+						<button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#usrs">
+	 					 Usuarios <span class="badge badge-light">{{usrs|length}}</span>
+						</button>
+						<ul class="list-group collapse" id="usrs">
+							{% for usr in usrs %}
+						 	 <li class="list-group-item">
+						 	 <a href="{{ path('usr_show', {'usr_id':  usr.usr_id }) }}">
+						 	 {{ usr.usr_nombre }}
+						 	 </li>
+						  	{% endfor %}
+						</ul>
+					</div>
+				</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+				{#{ dump(deps) }#}
+
+
+
+
+				 
 				</div>
 				<div class="card-footer">
 					{{ organismo.getOrgMail()|default('') }}

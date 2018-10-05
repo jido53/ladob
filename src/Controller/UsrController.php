@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\Usr;
+use App\Entity\DepUsr;
 
 class UsrController extends AbstractController
 {
@@ -30,15 +31,17 @@ class UsrController extends AbstractController
         $usr = $this->getDoctrine()
         ->getRepository(Usr::class)
         ->find($usr_id);
-
+        $deps = $this->getDoctrine()
+        ->getRepository(DepUsr::class)
+        ->findDepbyUser($usr_id);
     if (!$usr) {
         throw $this->createNotFoundException(
             'No usr found for id '.$id
         );
     }
     
-    return new Response('Check out this great usr: '.$usr->getcr());
-      
+    //return new Response('Check out this great usr: '.$usr->getcr());
+    return $this->render('usr/detail.html.twig', ['usr' => $usr, "deps"=>$deps]);
     // or render a template
     // in the template, print things with {{ product.name }}
     // return $this->render('product/show.html.twig', ['product' => $product]);

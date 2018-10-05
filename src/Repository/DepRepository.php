@@ -20,6 +20,21 @@ class DepRepository extends ServiceEntityRepository
     }
     
 
+    public function findDepbyOrg($org_id): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+                select dep_id, dep_descr
+                from dep
+                where org_id = :org_id;
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['org_id' => $org_id]);
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetchAll();
+    }
 
 //    /**
 //     * @return Dep[] Returns an array of Dep objects

@@ -23,6 +23,12 @@ class Dep
      * @ORM\Column(type="string", length=255)
      */
     private $dep_descorta;
+    
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $dep_descr;
+
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Organismo", inversedBy="deps")
@@ -62,6 +68,17 @@ class Dep
     public function setDepDescorta(string $dep_descorta): self
     {
         $this->dep_descorta = $dep_descorta;
+
+        return $this;
+    }
+    public function getDepDescr(): string
+    {
+        return $this->dep_descr;
+    }
+
+    public function setDepDescr(string $dep_descr): self
+    {
+        $this->dep_descr = $dep_descr;
 
         return $this;
     }

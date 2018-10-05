@@ -20,7 +20,7 @@
 			    {% for dep in dependencias %}
                 <tr>
 			      <td><a href="{{ path('dep_show', {'dep_id': dep.getDepId()}) }}">{{ dep.getDepId() }}</a></td>
-			      <td>{{ dep.getDepDescorta() }}</td>
+			      <td>{{ dep.getDepDescr() }}</td>
 			      <td>{{ dep.getOrgId().getOrgDescr() }}</td>
 			      
 			    </tr>

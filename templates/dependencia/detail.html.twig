@@ -19,7 +19,10 @@
 				
 					<ul class="list-group collapse" id="demo">
 						{% for usuario in usuarios %}
-					  <li class="list-group-item">{{ usuario.usr_nombre }}</li>
+						<li class="list-group-item">	
+					    <a href="{{ path('usr_show', {'usr_id':  usuario.usr_id }) }}">
+						 	 {{ usuario.usr_nombre }}</a>
+					    </li>
 					  	{% endfor %}
 					</ul>
 

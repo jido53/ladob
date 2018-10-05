@@ -19,6 +19,8 @@ class UsrRepository extends ServiceEntityRepository
         parent::__construct($registry, Usr::class);
     }
 
+    
+
 //    /**
 //     * @return Usr[] Returns an array of Usr objects
 //     */
