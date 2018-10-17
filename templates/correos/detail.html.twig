@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Detalle de Correo{% endblock %}
+
+
+
+	{% block body_centro %}
+
+
+		<h1>Detalle de Correo</h1>
+
+		<div class="card">
+			<div class="card-header">
+				<h3>Tipo: {{ correo.getEntTipo() }}</h3>
+				<h3>Asunto:{{ correo.getEfcAAsunto() }}</h3>
+				<h3>Destino: {{ correo.getEfcADestino() }}</h3>
+
+			</div>
+			<div class="card-body">
+
+				<div class="row">
+					{{ correo.getEfcACuerpo()|raw }}
+				</div>
+			</div>
+			<div class="card-footer">
+				<h3>Creado: {{ correo.getEfcAFeccre|date("d/m/Y h:m") }}</h3>
+				<h3>Enviado: {{ correo.getEfcAFecpro|date("d/m/Y h:m") }}</h3>
+			</div>
+		</div>
+
+	{% endblock %}

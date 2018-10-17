@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block javascript %}
+
+{{ parent() }}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-browser/0.1.0/jquery.browser.min.js"></script>
+
+<script>
+console.log($.browser)
+document.write("You are using " + $.browser.name +
+               " v" + $.browser.versionNumber + 
+               " on " + $.browser.platform);
+</script>
+
+{% endblock %}
+
+
+
+{% block body_centro %}
+{{agent}} 
+
+<script>
+
+</script>
+
+{#{dump(browser)}#}
+
+
+{% endblock %}
+
+
+

@@ -1,0 +1,68 @@
+					{% extends 'base.html.twig' %}
+					{% block stylesheets %}
+
+						{{ parent() }}
+
+						<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" >
+
+					{% endblock %}
+					{% block title %}Listado de Correos{% endblock %}
+						{% block body_centro %}
+							<h1>Listado de Correos</h1>
+
+
+							<table class="table" id="listado">
+								<thead>
+									<tr>
+										<th scope="col">ID</th>
+										<th scope="col">Tipo</th>
+										<th scope="col">Asunto</th>
+										<th scope="col">Destino</th>
+										<th scope="col">Creado</th>
+										<th scope="col">Enviado</th>
+										<th scope="col">Estado</th>
+									</tr>
+								</thead>
+								<tbody>
+
+									{% for correo in correos %}
+										<tr>
+											<td><a href="{{ path('correo_show', {'correo_id': correo.getEfcAId()}) }}">{{ correo.getEfcAId() }}</a></td>
+											<td>{{ correo.getEntTipo() }}</td>
+											<td>{{ correo.getEfcAAsunto() }}</td>
+											<td>{{ correo.getEfcADestino() }}</td>
+											<td>{{ correo.getEfcAFeccre|date("d/m/Y h:m") }}</td>
+											<td>{{ correo.getEfcAFecpro|date("d/m/Y h:m") }}</td>
+											{% set estado = correo.getEfcAEstado() %}
+												{#Estado del proceso de envoi: 0 - Pendiente, 1 - En proceso, 2- Enviado, 3 - No se encontro destino o formato, 4 - Error #}
+												<td>{% if estado == 0 %}
+													{{'Pendiente'}}
+													<td>{{ correo.getEfcAEstado() }}</td>
+												{% elseif estado == 1 %}
+													{{'en Proceso'}}
+												{% elseif estado == 2 %}
+													{{'Enviado'}}	
+												{% elseif estado == 3 %}
+													{{'No se encontro destino o formato'}}
+												{% elseif estado == 4 %}
+													{{''}}
+												{% endif %}
+											</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+
+
+						{% endblock %}
+
+						{% block javascripts %}
+
+							{{ parent() }}
+
+							<script>
+							$(document).ready(function() {
+								$('#listado').DataTable();
+							} );
+							</script>
+						{% endblock %}
