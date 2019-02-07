@@ -54,15 +54,6 @@ class Usr
      */
     private $usr_voc;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\DepUsr", mappedBy="usr_id")
-     */
-    private $depUsrs;
-
-    public function __construct()
-    {
-        $this->depUsrs = new ArrayCollection();
-    }
 
     public function getUsrId(): int
     {
@@ -160,34 +151,8 @@ class Usr
         return $this;
     }
 
-    /**
-     * @return Collection|DepUsr[]
-     */
-    public function getDepUsrs(): Collection
-    {
-        return $this->depUsrs;
-    }
 
-    public function addDepUsr(DepUsr $depUsr): self
-    {
-        if (!$this->depUsrs->contains($depUsr)) {
-            $this->depUsrs[] = $depUsr;
-            $depUsr->setUsrId($this);
-        }
 
-        return $this;
-    }
 
-    public function removeDepUsr(DepUsr $depUsr): self
-    {
-        if ($this->depUsrs->contains($depUsr)) {
-            $this->depUsrs->removeElement($depUsr);
-            // set the owning side to null (unless already changed)
-            if ($depUsr->getUsrId() === $this) {
-                $depUsr->setUsrId(null);
-            }
-        }
 
-        return $this;
-    }
 }

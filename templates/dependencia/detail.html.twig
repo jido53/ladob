@@ -12,11 +12,10 @@
 					{{ dep.getDepDescorta() }}
 				</h5>
 				<div class="card-body">
-				{#{ dump(usuarios) }#}
+				{#{ dump(dep.getUsers() }#}
 					<button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo">
  					 Usuarios <span class="badge badge-light">{{usuarios|length}}</span>
 					</button>
-				
 					<ul class="list-group collapse" id="demo">
 						{% for usuario in usuarios %}
 						<li class="list-group-item">	

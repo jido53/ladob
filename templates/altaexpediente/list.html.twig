@@ -1,0 +1,45 @@
+					{% extends 'base.html.twig' %}
+					{% block stylesheets %}
+
+						{{ parent() }}
+
+						<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" >
+
+					{% endblock %}
+					{% block title %}Listado de Alta Expedientes{% endblock %}
+						{% block body_centro %}
+							<h1>Listado de Alta Expedientes</h1>
+
+
+							<table class="table" id="listado">
+								<thead>
+									<tr>
+										<th scope="col">ID</th>
+										<th scope="col">Request</th>
+									</tr>
+								</thead>
+								<tbody>
+									{{ dump(listado) }}
+									{% for request in requests %}
+										<tr>
+											<td><a href="{{ path('request_show', {'request_id': request.getExpId()}) }}">{{ request.getExpId() }}</a></td>
+											<td>{#{ request.getEntTipo() }#}Algo</td>
+											</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+
+
+						{% endblock %}
+
+						{% block javascripts %}
+
+							{{ parent() }}
+
+							<script>
+							$(document).ready(function() {
+								$('#listado').DataTable();
+							} );
+							</script>
+						{% endblock %}

@@ -11,6 +11,7 @@ class DepUsr
 {
     /**
      * @ORM\Id()
+     * @ORM\Column(type="integer")
      * @ORM\ManyToOne(targetEntity="App\Entity\Dep", inversedBy="depUsrs")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -23,6 +24,7 @@ class DepUsr
 
     /**
      * @ORM\Id()
+     * @ORM\Column(type="integer")
      * @ORM\ManyToOne(targetEntity="App\Entity\Usr", inversedBy="depUsrs")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -33,9 +35,11 @@ class DepUsr
      */
     private $dus_default;
 
-    public function getId(): ?int
+
+    public function __construct($dep_id, $usr_id)
     {
-        return $this->id;
+        $this->dep = $dep_id;
+        $this->usr = $usr_id;
     }
 
     public function getDepId(): ?Dep

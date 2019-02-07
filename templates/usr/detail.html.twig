@@ -12,7 +12,7 @@
 					{{ usr.getUsrNombre() }}
 				</h5>
 				<div class="card-body">
-				{#{ dump(deps) }#}
+				{#{ dump(usr.getGroups()) }#}
 				<button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo">
  					 Dependencias <span class="badge badge-light">{{deps|length}}</span>
 					</button>

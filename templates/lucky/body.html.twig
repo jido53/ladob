@@ -1,0 +1,15 @@
+{# templates/emails/body.html.twig #}
+<h3>Sistema de control de presentismo</h3><br /><br />
+
+Estimado {{ name }} a continuación le entregamos la credenciales para acceder al sistema Horus.<br /><br />
+
+{# example, assuming you have a route named "login" #}
+La dirección para acceder al sistema es: <a href="http://horus.mpdefensa.gob.ar/">http://horus.mpdefensa.gob.ar/</a>.<br />
+Su usuario: {{ usuario }} <br />
+Su contraseña: {{ pass }} <br />
+Es responsable del área: {{ sector }} <br /><br />
+
+Saludos cordiales
+
+{# Makes an absolute URL to the /images/logo.png file 
+<img src="{{ absolute_url(asset('images/logo.png')) }}"> #}

@@ -1,0 +1,51 @@
+{#Listado de expedientes con ajax#}
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+
+{{ parent() }}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" >
+
+{% endblock %}
+{% block title %}Listado de Legajos AJAX{% endblock %}
+{% block body_centro %}
+<h1>Listado de Legajos</h1>
+
+
+
+              <table class="table" id="listado">
+			  <thead>
+			    <tr>
+			      <th scope="col">ID</th>
+			      <th scope="col">Caratula</th>
+			      <th scope="col">Tipo de expediente</th>
+			      
+			    </tr>
+			  </thead>
+			  <tbody>
+			    
+			    {% for exp in exps %}
+                <tr>
+			      <td><a href="{{ path('exp_show', {'exp_id': exp.getExpId()}) }}">{{ exp.getExpId() }}</a></td>
+			      <td>{{ exp.getExpCarat() }}</td>
+			      <td>{{ exp.getTexId.getTexDescr() }}</td>
+			      
+			    </tr>
+			    {% endfor %}
+			  </tbody>
+			</table>
+            
+        
+{% endblock %}
+
+{% block javascripts %}
+
+{{ parent() }}
+
+<script>
+$(document).ready(function() {
+    $('#listado').DataTable();
+} );
+</script>
+{% endblock %}
