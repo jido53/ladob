@@ -73,6 +73,43 @@ class LuckyController extends AbstractController
 
         return $this->render('lucky/number.html.twig', [
           'number' => $number,
+        ]);}      /**
+      * @Route("/lucky/testmail")
+      */
+      public function testmail(\Swift_Mailer $mailer)
+      {
+        $number = random_int(0, 100);
+        $message = (new \Swift_Message('Prueba de correo'))
+        ->setFrom('intranet.mpd@jusbaires.gob.ar')
+        ->setTo('gbuhl@jusbaires.gob.ar')
+        ->setBody(
+
+                $this->renderView(
+                'lucky/number.html.twig',
+                ['number' => $number]
+            ),
+          'text/html'
+        );
+        /*
+         * If you also want to include a plaintext version of the message
+        ->addPart(
+            $this->renderView(
+                'emails/registration.txt.twig',
+                ['name' => $name]
+            ),
+            'text/plain'
+        )
+        */
+        
+
+        $mailer->send($message);
+        
+        
+        
+        $number = 'Se envio el correo';
+
+        return $this->render('lucky/number.html.twig', [
+          'number' => $number,
         ]);}
 
 

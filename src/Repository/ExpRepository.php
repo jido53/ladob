@@ -27,10 +27,35 @@ class ExpRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('e')
             ->orderBy('e.exp_id', 'ASC')
-            ->setMaxResults(100)
+            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
+    } 
+
+    public function findList2()
+    {
+        return $this->createQueryBuilder('e')
+           ->select('e.exp_id, e.exp_carat')
+           ->orderBy('e.exp_id', 'ASC')
+           ->setMaxResults(10)
+           ->getQuery()
+           ->getResult();
+
+        
+
+
+/*
+
+        return $this->createQueryBuilder('')
+            ->select('e.exp_id','e.exp_carat','e.tex_id')
+            ->from('    Exp','e')
+            ->orderBy('e.exp_id', 'ASC')
+            ->setMaxResults(50)
+            ->getQuery()
+            ->getResult()
+        ;*/
+
     }
     
 
