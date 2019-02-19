@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,6 +12,10 @@ use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use App\Entity\Exp;
+
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 
 
@@ -47,12 +52,11 @@ class ExpController extends AbstractController
     public function JsonResponse()
     {
 
-
       $exps = [
-
+        
         "draw" => 1,
-        "recordsTotal" => 57,
-        "recordsFiltered"=> 57,
+        "recordsTotal" => 10,
+        "recordsFiltered"=> 10,
         "data" => $this->getDoctrine()->getRepository(Exp::class)->findList2()
 
 
@@ -60,7 +64,8 @@ class ExpController extends AbstractController
       ];
 
       //$exps = $this->getDoctrine()->getRepository(Exp::class)->findList2();
-
+      
+      
       return new JsonResponse($exps);
     }
 

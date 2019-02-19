@@ -12,8 +12,6 @@
 	{% block body_centro %}
 		<h1>Listado de Legajos</h1>
 
-
-
 		<table class="table" id="listado">
 			<thead>
 				<tr>
@@ -23,17 +21,6 @@
 
 				</tr>
 			</thead>
-			<tbody>
-
-				{% for exp in exps %}
-					<tr>
-						<td><a href="{{ path('exp_show', {'exp_id': exp.exp_id}) }}">{{ exp.exp_id }}</a></td>
-						<td>{{ exp.exp_carat }}</td>
-
-
-					</tr>
-				{% endfor %}
-			</tbody>
 		</table>
 
 
@@ -48,7 +35,12 @@ $(document).ready(function() {
     $('#listado').DataTable( {
         "processing": true,
         "serverSide": true,
-        "ajax": "/listajax"
+        "ajax": "listajax",
+        "columns": [
+            { "data": "exp_id" },
+            { "data": "exp_carat" },
+        ]
+
     } );
 } );
 		</script>
