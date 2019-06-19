@@ -1,0 +1,33 @@
+Estimados,
+Muchas gracias por la reunión y la predisposición. Les paso los datos de conexión con los cuales hoy estamos consultando desde glpi.
+ 
+Datos de conexión
+ 
+Servidor = ldap://10.0.10.200
+Puerto = 389
+BaseDN = DC=defensoria,DC=mpdefensa,DC=gob,DC=ar
+ROOT DN(de ser necesario) = DEFENSORIA\prueban (password = Cambiar2018)
+Campo de usuario = samaccountname
+ 
+Configuración para traerse la información de usuarios
+ 
+Apellido = sn
+Nombre = givenname
+Correo electrónico = mail
+Teléfono = telephonenumber
+ 
+Configuración para traerse la información de grupos
+ 
+Atributo del usuario que contiene sus grupos = memberof
+Filtro para búsqueda en los grupos = (&(objectClass=user)(objectCategory=person)(!(userAccountControl:1.2.840.113556.1.4.803:=2)))
+Usar DN en las búsquedas = si
+ 
+ 
+Utilizar TLS = no
+ 
+ 
+Luego de realizar las pruebas y comprobar el funcionamiento sería importante que nos indiquen donde se realiza ésta configuración. Así, en caso de tener algún inconveniente poder darle una solución más rápida de parte nuestra.
+ 
+Aguardamos novedades, muchas gracias!
+ 
+Abrazo

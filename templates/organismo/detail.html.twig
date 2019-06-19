@@ -5,7 +5,6 @@
 <h1>Detalle de Organismo</h1>
 
 
-         
 
 			<div class="card">
 				<h5 class="card-header">
@@ -14,7 +13,7 @@
 				<div class="card-body">
 
 				<div class="row">
-					<div class="col-md-6">
+					<div class="col-md-4">
 						 
 						<button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#deps">
 	 					 Dependencias <span class="badge badge-light">{{deps|length}}</span>
@@ -29,7 +28,7 @@
 						  	{% endfor %}
 						</ul>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-4">
 						 
 						<button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#usrs">
 	 					 Usuarios <span class="badge badge-light">{{usrs|length}}</span>
@@ -42,6 +41,11 @@
 						 	 </li>
 						  	{% endfor %}
 						</ul>
+					</div>
+					<div class="col-md-4">
+							{{ form_start(organismo_form) }}
+								{{ form_widget(organismo_form) }}
+							{{ form_end(organismo_form) }}
 					</div>
 				</div>
 

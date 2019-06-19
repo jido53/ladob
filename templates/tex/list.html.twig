@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+
+    {{ parent() }}
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" >
+
+{% endblock %}
+{% block title %}Listado de Tipo de Expedientes{% endblock %}
+{% block body_centro %}
+    <h1>Listado de Tipo de Expedientes</h1>
+
+
+    <table class="table" id="listado">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Correo</th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for tex in texs %}
+            <tr>
+                <td><a href="{{ path('tex_edit', {'tex_id': tex.TexId}) }}">{{ tex.TexId }}</a></td>
+                <td>{{ tex.TexDescr }}</td>
+                <td>{{ tex.TexCod }}</td>
+                
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script>
+        $(document).ready(function() {
+            $('#listado').DataTable();
+        } );
+    </script>
+{% endblock %}
