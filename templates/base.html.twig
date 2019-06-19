@@ -11,6 +11,14 @@
 <body>
 <div class="container-fluid">
 	<div class="row">
+		<div class="col-md-12">
+			{% block header %}
+				<img src="{{ asset('images/mpd.jpg') }}" alt="Logo MPD" >
+			{% endblock %}
+		</div>
+
+	</div>
+	<div class="row">
 		<div class="col-md-2">
 
 		</div>
@@ -24,7 +32,9 @@
 	</div>
 	<div class="row">
 		<div class="col-md-2">
-			{% block body_mgd %}{% endblock %}
+			{% block body_mgd %}
+				{% include 'menu_lateral.html.twig' %}
+			{% endblock %}
 		</div>
 		<div class="col-md-9">
 			{% block body_centro %}{% endblock %}
