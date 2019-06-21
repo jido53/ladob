@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -122,6 +124,16 @@ class Oju
      */
 
     private $oju_cod_ws;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\TtrOju", mappedBy="oju")
+     */
+    private $ttrOjus;
+
+    public function __construct()
+    {
+        $this->ttrOjus = new ArrayCollection();
+    }
 
     public function getOjuId(): ?int
     {
@@ -304,6 +316,37 @@ class Oju
     public function setOjuCodWs(string $oju_cod_ws): self
     {
         $this->oju_cod_ws = $oju_cod_ws;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|TtrOju[]
+     */
+    public function getOjusTtr(): Collection
+    {
+        return $this->ojusTtr;
+    }
+
+    public function addOjusTtr(TtrOju $ojusTtr): self
+    {
+        if (!$this->ojusTtr->contains($ojusTtr)) {
+            $this->ojusTtr[] = $ojusTtr;
+            $ojusTtr->setOju($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOjusTtr(TtrOju $ojusTtr): self
+    {
+        if ($this->ojusTtr->contains($ojusTtr)) {
+            $this->ojusTtr->removeElement($ojusTtr);
+            // set the owning side to null (unless already changed)
+            if ($ojusTtr->getOju() === $this) {
+                $ojusTtr->setOju(null);
+            }
+        }
 
         return $this;
     }

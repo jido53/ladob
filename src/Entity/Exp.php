@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -645,6 +647,22 @@ class Exp
      * @ORM\JoinColumn(name="est_id", referencedColumnName="est_id", nullable=false)
      */
     private $epr;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\ExpAdi", mappedBy="exp", cascade={"persist", "remove"})
+
+     */
+    private $expAdi;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ExpTtr", mappedBy="exp")
+     */
+    private $expTtrOju;
+
+    public function __construct()
+    {
+        $this->expTtrOju = new ArrayCollection();
+    }
 
 
     public function getExpId(): ?int
@@ -1910,6 +1928,55 @@ class Exp
     public function setEpr(?Estado $epr): self
     {
         $this->epr = $epr;
+
+        return $this;
+    }
+
+    public function getExpAdi(): ?ExpAdi
+    {
+        return $this->expAdi;
+    }
+
+    public function setExpAdi(?ExpAdi $expAdi): self
+    {
+        $this->expAdi = $expAdi;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newExp = $expAdi === null ? null : $this;
+        if ($newExp !== $expAdi->getExp()) {
+            $expAdi->setExp($newExp);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ExpTtr[]
+     */
+    public function getExpTtrOju(): Collection
+    {
+        return $this->expTtrOju;
+    }
+
+    public function addExpTtrOju(ExpTtr $expTtrOju): self
+    {
+        if (!$this->expTtrOju->contains($expTtrOju)) {
+            $this->expTtrOju[] = $expTtrOju;
+            $expTtrOju->setExp($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExpTtrOju(ExpTtr $expTtrOju): self
+    {
+        if ($this->expTtrOju->contains($expTtrOju)) {
+            $this->expTtrOju->removeElement($expTtrOju);
+            // set the owning side to null (unless already changed)
+            if ($expTtrOju->getExp() === $this) {
+                $expTtrOju->setExp(null);
+            }
+        }
 
         return $this;
     }

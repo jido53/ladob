@@ -36,9 +36,15 @@ class TipoExpediente
      */
     private $exps;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\TtrOju", mappedBy="tex")
+     */
+    private $ttrOjus;
+
     public function __construct()
     {
         $this->exps = new ArrayCollection();
+        $this->ttrOjus = new ArrayCollection();
     }
 
 
@@ -97,6 +103,37 @@ class TipoExpediente
             // set the owning side to null (unless already changed)
             if ($exp->getTexId() === $this) {
                 $exp->setTexId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|TtrOju[]
+     */
+    public function getTtrOjus(): Collection
+    {
+        return $this->ttrOjus;
+    }
+
+    public function addTtrOjus(TtrOju $ttrOjus): self
+    {
+        if (!$this->ttrOjus->contains($ttrOjus)) {
+            $this->ttrOjus[] = $ttrOjus;
+            $ttrOjus->setTex($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTtrOjus(TtrOju $ttrOjus): self
+    {
+        if ($this->ttrOjus->contains($ttrOjus)) {
+            $this->ttrOjus->removeElement($ttrOjus);
+            // set the owning side to null (unless already changed)
+            if ($ttrOjus->getTex() === $this) {
+                $ttrOjus->setTex(null);
             }
         }
 

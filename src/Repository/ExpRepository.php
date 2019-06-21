@@ -26,6 +26,7 @@ class ExpRepository extends ServiceEntityRepository
     public function findList()
     {
         return $this->createQueryBuilder('e')
+            ->innerJoin('e.expAdi','a')
             ->orderBy('e.exp_id', 'ASC')
             ->setMaxResults(100)
             ->getQuery()

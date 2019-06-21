@@ -13,10 +13,10 @@ class ExpAdi
 
     /**
      * @ORM\Id()
-     * @ORM\Column(type="integer")
+     * @ORM\OneToOne(targetEntity="App\Entity\Exp", inversedBy="expAdi", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="exp_id", referencedColumnName="exp_id", nullable=false)
      */
-
-    private $exp_id;
+    private $exp;
 
 
     /**
@@ -1124,10 +1124,9 @@ class ExpAdi
 
     private $mod_ing_ccd;
 
-    public function getExpId(): ?int
-    {
-        return $this->exp_id;
-    }
+
+
+
 
     public function getAExpObs(): ?string
     {
@@ -3021,6 +3020,18 @@ class ExpAdi
     public function setModIngCcd(?int $mod_ing_ccd): self
     {
         $this->mod_ing_ccd = $mod_ing_ccd;
+
+        return $this;
+    }
+
+    public function getExp(): ?Exp
+    {
+        return $this->exp;
+    }
+
+    public function setExp(?Exp $exp): self
+    {
+        $this->exp = $exp;
 
         return $this;
     }

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -191,6 +193,16 @@ class Ttr
      */
 
     private $ttr_cod_ws;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\TtrOju", mappedBy="ttr")
+     */
+    private $ttrOjus;
+
+    public function __construct()
+    {
+        $this->ttrOjus = new ArrayCollection();
+    }
 
     public function getTtrId(): ?int
     {
@@ -493,6 +505,37 @@ class Ttr
     public function setTtrCodWs(string $ttr_cod_ws): self
     {
         $this->ttr_cod_ws = $ttr_cod_ws;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|TtrOju[]
+     */
+    public function getTtrOjus(): Collection
+    {
+        return $this->ttrOjus;
+    }
+
+    public function addTtrOjus(TtrOju $ttrOjus): self
+    {
+        if (!$this->ttrOjus->contains($ttrOjus)) {
+            $this->ttrOjus[] = $ttrOjus;
+            $ttrOjus->setTtr($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTtrOjus(TtrOju $ttrOjus): self
+    {
+        if ($this->ttrOjus->contains($ttrOjus)) {
+            $this->ttrOjus->removeElement($ttrOjus);
+            // set the owning side to null (unless already changed)
+            if ($ttrOjus->getTtr() === $this) {
+                $ttrOjus->setTtr(null);
+            }
+        }
 
         return $this;
     }
