@@ -20,7 +20,8 @@
 			      <th scope="col">ID</th>
 			      <th scope="col">Caratula</th>
 			      <th scope="col">Tipo de expediente</th>
-			      
+				  <th scope="col">Estado</th>
+				  <th scope="col">Estado Procesal</th>
 			    </tr>
 			  </thead>
 			  <tbody>
@@ -30,7 +31,8 @@
 			      <td><a href="{{ path('exp_show', {'exp_id': exp.getExpId()}) }}">{{ exp.getExpId() }}</a></td>
 			      <td>{{ exp.getExpCarat() }}</td>
 			      <td>{{ exp.getTexId.getTexDescr() }}</td>
-			      
+			      <td>{{ exp.est.estdescr() }}</td>
+			      <td>{{ exp.getEpr.getEstDescr() }}</td>
 			    </tr>
 			    {% endfor %}
 			  </tbody>

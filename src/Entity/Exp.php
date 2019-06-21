@@ -40,11 +40,11 @@ class Exp
     */      
     private $exp_anio;
 
-
-    /**
-    * @ORM\Column(type="integer", length=5, nullable=False) 
-    */      
-    private $est_id;
+//
+//    /**
+//    * @ORM\Column(type="integer", length=5, nullable=False)
+//    */
+//    private $est_id;
 
 
     /**
@@ -119,10 +119,10 @@ class Exp
     private $exp_ultmovcr;
 
 
-    /**
-    * @ORM\Column(type="integer", length=5, nullable=True) 
-    */       
-    private $epr_id;
+//    /**
+//    * @ORM\Column(type="integer", length=5, nullable=True)
+//    */
+//    private $epr_id;
 
 
     /**
@@ -634,6 +634,19 @@ class Exp
      */
     private $tex_id;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Estado", inversedBy="exps1")
+     * @ORM\JoinColumn(name="est_id", referencedColumnName="est_id", nullable=false)
+     */
+    private $est;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Estado", inversedBy="exps2")
+     * @ORM\JoinColumn(name="est_id", referencedColumnName="est_id", nullable=false)
+     */
+    private $epr;
+
+
     public function getExpId(): ?int
     {
         return $this->exp_id;
@@ -688,18 +701,18 @@ class Exp
 
         return $this;
     }
-
-    public function getEstId(): ?int
-    {
-        return $this->est_id;
-    }
-
-    public function setEstId(int $est_id): self
-    {
-        $this->est_id = $est_id;
-
-        return $this;
-    }
+//
+//    public function getEstId(): ?int
+//    {
+//        return $this->est_id;
+//    }
+//
+//    public function setEstId(int $est_id): self
+//    {
+//        $this->est_id = $est_id;
+//
+//        return $this;
+//    }
 
     public function getExpFecreg(): ?\DateTimeInterface
     {
@@ -845,17 +858,17 @@ class Exp
         return $this;
     }
 
-    public function getEprId(): ?int
-    {
-        return $this->epr_id;
-    }
-
-    public function setEprId(?int $epr_id): self
-    {
-        $this->epr_id = $epr_id;
-
-        return $this;
-    }
+//    public function getEprId(): ?int
+//    {
+//        return $this->epr_id;
+//    }
+//
+//    public function setEprId(?int $epr_id): self
+//    {
+//        $this->epr_id = $epr_id;
+//
+//        return $this;
+//    }
 
     public function getExpPrefijo(): ?int
     {
@@ -1876,6 +1889,32 @@ class Exp
 
         return $this;
     }
+
+    public function getEst(): ?Estado
+    {
+        return $this->est;
+    }
+
+    public function setEst(?Estado $est): self
+    {
+        $this->est = $est;
+
+        return $this;
+    }
+
+    public function getEpr(): ?Estado
+    {
+        return $this->epr;
+    }
+
+    public function setEpr(?Estado $epr): self
+    {
+        $this->epr = $epr;
+
+        return $this;
+    }
+
+
 
 
 }
