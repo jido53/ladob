@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+
+    {{ parent() }}
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" >
+
+{% endblock %}
+{% block title %}Listado de Tipo de Objetos{% endblock %}
+{% block body_centro %}
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 ttrt-gray-800">{{ ttr.TtrDescr }}</h1>
+    {#<p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>#}
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        {#<div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold ttrt-primary">DataTables Example</h6>
+        </div>#}
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="listado" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+
+                        <th scope="col">OJU</th>
+                        <th scope="col">TEX</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for ttr in ttr.ttrOjus %}
+                        <tr>
+
+                            <td>{{ ttr.oju.ojuDescr }}</td>
+                            <td>{{ ttr.tex.texDescr }}</td>
+
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+    {#
+        <table class="table table-striped table-sm" id="listado">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Codigo</th>
+
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for ttr in ttrs %}
+                <tr>
+                    <td><a href="{{ path('ttr_edit', {'ttr_id': ttr.TtrId}) }}">{{ ttr.TtrId }}</a></td>
+                    <td>{{ ttr.TtrDescr }}</td>
+                    <td>{{ ttr.TtrCod }}</td>
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    #}
+
+{% endblock %}
+{#
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script>
+        $(document).ready(function() {
+            $('#listado').DataTable();
+        } );
+    </script>
+{% endblock %}
+
+
+#}

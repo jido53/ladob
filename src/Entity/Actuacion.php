@@ -319,6 +319,11 @@ private $act_fecacept;
  */
 private $org_iddes;
 
+/**
+ * @ORM\OneToOne(targetEntity="App\Entity\ActAdi", mappedBy="act", cascade={"persist", "remove"})
+ */
+private $actAdi;
+
 public function getActId(): ?int
 {
     return $this->act_id;
@@ -1220,6 +1225,24 @@ public function getOrgIddes(): ?int
 public function setOrgIddes(int $org_iddes): self
 {
     $this->org_iddes = $org_iddes;
+
+    return $this;
+}
+
+public function getActAdi(): ?ActAdi
+{
+    return $this->actAdi;
+}
+
+public function setActAdi(?ActAdi $actAdi): self
+{
+    $this->actAdi = $actAdi;
+
+    // set (or unset) the owning side of the relation if necessary
+    $newAct = $actAdi === null ? null : $this;
+    if ($newAct !== $actAdi->getAct()) {
+        $actAdi->setAct($newAct);
+    }
 
     return $this;
 }

@@ -27,8 +27,9 @@ class ExpRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('e')
             ->innerJoin('e.expAdi','a')
+            ->addSelect('a')
             ->orderBy('e.exp_id', 'ASC')
-            ->setMaxResults(100)
+            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;

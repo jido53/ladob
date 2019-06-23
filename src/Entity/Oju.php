@@ -351,6 +351,37 @@ class Oju
         return $this;
     }
 
+    /**
+     * @return Collection|TtrOju[]
+     */
+    public function getTtrOjus(): Collection
+    {
+        return $this->ttrOjus;
+    }
+
+    public function addTtrOjus(TtrOju $ttrOjus): self
+    {
+        if (!$this->ttrOjus->contains($ttrOjus)) {
+            $this->ttrOjus[] = $ttrOjus;
+            $ttrOjus->setOju($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTtrOjus(TtrOju $ttrOjus): self
+    {
+        if ($this->ttrOjus->contains($ttrOjus)) {
+            $this->ttrOjus->removeElement($ttrOjus);
+            // set the owning side to null (unless already changed)
+            if ($ttrOjus->getOju() === $this) {
+                $ttrOjus->setOju(null);
+            }
+        }
+
+        return $this;
+    }
+
 
 
 }

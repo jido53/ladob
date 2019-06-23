@@ -97,6 +97,42 @@ class ExpTtr
         return $this;
     }
 
+    public function getETtrOrden(): ?int
+    {
+        return $this->e_ttr_orden;
+    }
+
+    public function setETtrOrden(int $e_ttr_orden): self
+    {
+        $this->e_ttr_orden = $e_ttr_orden;
+
+        return $this;
+    }
+
+    public function getGradoId(): ?int
+    {
+        return $this->grado_id;
+    }
+
+    public function setGradoId(int $grado_id): self
+    {
+        $this->grado_id = $grado_id;
+
+        return $this;
+    }
+
+    public function getActivo(): ?int
+    {
+        return $this->activo;
+    }
+
+    public function setActivo(int $activo): self
+    {
+        $this->activo = $activo;
+
+        return $this;
+    }
+
 
 
 

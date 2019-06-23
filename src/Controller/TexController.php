@@ -22,7 +22,7 @@ class TexController extends AbstractController
     public function list(TipoExpedienteRepository $repository)
     {
 
-        /** @var @var TipoExpediente $tex */
+        /** @var TipoExpediente $tex */
         $tex = $repository->findAll();
         if (!$tex){
 
