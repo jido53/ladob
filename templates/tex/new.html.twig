@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+{% block body_centro%}
+    <h1>Tipo de Expediente</h1>
+    {{ form_start(texForm) }}
+    {{ form_widget(texForm) }}
+    <button type="submit" class="btn btn-primary">Crear</button>
+    {{ form_end(texForm) }}
+{% endblock %}
+
+
