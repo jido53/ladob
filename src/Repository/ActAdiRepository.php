@@ -5,7 +5,7 @@ namespace App\Repository;
 use App\Entity\ActAdi;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
-
+/*un comentario*/
 /**
  * @method ActAdi|null find($id, $lockMode = null, $lockVersion = null)
  * @method ActAdi|null findOneBy(array $criteria, array $orderBy = null)
