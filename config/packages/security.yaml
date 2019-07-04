@@ -1,6 +1,9 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
+      #  entity:
+      #      class: App\Entity\User
+     #       property: $usr_nombre
         in_memory: { memory: ~ }
     firewalls:
         dev:
