@@ -3122,16 +3122,16 @@
         },
         {
             "name": "symfony/ldap",
-            "version": "v3.4.27",
+            "version": "v3.4.29",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/ldap.git",
-                "reference": "d482f83263e158e392f42e96439375843ca3af2d"
+                "reference": "dee51d729d73e926f01feacbab5b5b372f15d25e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ldap/zipball/d482f83263e158e392f42e96439375843ca3af2d",
-                "reference": "d482f83263e158e392f42e96439375843ca3af2d",
+                "url": "https://api.github.com/repos/symfony/ldap/zipball/dee51d729d73e926f01feacbab5b5b372f15d25e",
+                "reference": "dee51d729d73e926f01feacbab5b5b372f15d25e",
                 "shasum": ""
             },
             "require": {
@@ -3174,7 +3174,7 @@
                 "active directory",
                 "ldap"
             ],
-            "time": "2019-04-16T13:58:17+00:00"
+            "time": "2019-05-30T15:47:52+00:00"
         },
         {
             "name": "symfony/monolog-bridge",

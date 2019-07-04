@@ -27,5 +27,17 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
+    Symfony\Component\Ldap\Ldap:
+        arguments: ['@Symfony\Component\Ldap\Adapter\ExtLdap\Adapter']
+    Symfony\Component\Ldap\Adapter\ExtLdap\Adapter:
+        arguments:
+            #-   host: 10.0.10.200
+            -   host: 10.11.8.31
+                port: 389
+                #encryption: tls
+                options:
+                    protocol_version: 3
+                    referrals: false
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
