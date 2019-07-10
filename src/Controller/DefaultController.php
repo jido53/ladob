@@ -15,27 +15,9 @@ class DefaultController extends AbstractController
      */
     public function index()
     {
-        return $this->render('default/index.html.twig', [
-            'controller_name' => 'DefaultController',
-        ]);
+        return $this->redirectToRoute('app_login');
     }
 
-    /**
-     * @Route("/login", name="login")
-     */
-    public function login(Request $request, AuthenticationUtils $authUtils)
-    {
-        // get the login error if there is one
-        $error = $authUtils->getLastAuthenticationError();
-
-        // last username entered by the user
-        $lastUsername = $authUtils->getLastUsername();
-
-        return $this->render('security/login.html.twig', array(
-            'last_username' => $lastUsername,
-            'error'         => $error,
-        ));
-    }
 
     /**
      * @Route("/profile", name="profile")

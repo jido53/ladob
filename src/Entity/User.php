@@ -23,17 +23,17 @@ class User implements UserInterface
      */
     private $usr_nombre;
 
-    /**
-     * @ORM\Column(type="json")
-     */
-    private $roles = [];
-
-    /**
-     * @var string The hashed password
-     * @ORM\Column(type="string")
-     */
-    private $password;
-
+//    /**
+//     * @ORM\Column(type="json")
+//     */
+//    private $roles = [];
+//
+//    /**
+//     * @var string The hashed password
+//     * @ORM\Column(type="string")
+//     */
+//    private $password;
+//
 
 
     /**
@@ -67,16 +67,10 @@ class User implements UserInterface
     private $usr_voc;
 
 
-    public function getUsrId(): int
-    {
-        return $this->usr_id;
-    }
 
-    public function setUsrId(int $usr_id): self
+    public function getId(): ?int
     {
-        $this->usr_id = $usr_id;
-
-        return $this;
+        return $this->id;
     }
 
     public function getUsrNombre(): string
@@ -156,26 +150,10 @@ class User implements UserInterface
         return $this->usr_voc;
     }
 
+
     public function setUsrVoc(string $usr_voc): self
     {
         $this->usr_voc = $usr_voc;
-
-        return $this;
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getUsrNombre(): ?string
-    {
-        return $this->usr_nombre;
-    }
-
-    public function setUsrNombre(string $usr_nombre): self
-    {
-        $this->usr_nombre = $usr_nombre;
 
         return $this;
     }
@@ -195,7 +173,7 @@ class User implements UserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
+        //$roles = $this->roles;
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
@@ -214,7 +192,7 @@ class User implements UserInterface
      */
     public function getPassword(): string
     {
-        return (string) $this->password;
+        return (string) 'k';//$this->password;
     }
 
     public function setPassword(string $password): self

@@ -31,8 +31,8 @@ services:
         arguments: ['@Symfony\Component\Ldap\Adapter\ExtLdap\Adapter']
     Symfony\Component\Ldap\Adapter\ExtLdap\Adapter:
         arguments:
-            #-   host: 10.0.10.200
-            -   host: 10.11.8.31
+            -   host: 10.0.10.200
+#            -   host: 10.11.8.31
                 port: 389
                 #encryption: tls
                 options:
