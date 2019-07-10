@@ -36,6 +36,16 @@ class Dep
      */
     private $org_id;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\DepUsrCar", mappedBy="dependencia")
+     */
+    private $depUsrCars;
+
+    public function __construct()
+    {
+        $this->depUsrCars = new ArrayCollection();
+    }
+
 
     public function getDepId(): int
     {
@@ -80,6 +90,37 @@ class Dep
     public function setOrgId(Organismo $org_id): self
     {
         $this->org_id = $org_id;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|DepUsrCar[]
+     */
+    public function getDepUsrCars(): Collection
+    {
+        return $this->depUsrCars;
+    }
+
+    public function addDepUsrCar(DepUsrCar $depUsrCar): self
+    {
+        if (!$this->depUsrCars->contains($depUsrCar)) {
+            $this->depUsrCars[] = $depUsrCar;
+            $depUsrCar->setDependencia($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDepUsrCar(DepUsrCar $depUsrCar): self
+    {
+        if ($this->depUsrCars->contains($depUsrCar)) {
+            $this->depUsrCars->removeElement($depUsrCar);
+            // set the owning side to null (unless already changed)
+            if ($depUsrCar->getDependencia() === $this) {
+                $depUsrCar->setDependencia(null);
+            }
+        }
 
         return $this;
     }

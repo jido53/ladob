@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -65,6 +67,16 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $usr_voc;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\DepUsrCar", mappedBy="usuario")
+     */
+    private $depUsrCars;
+
+    public function __construct()
+    {
+        $this->depUsrCars = new ArrayCollection();
+    }
 
 
 
@@ -217,5 +229,36 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection|DepUsrCar[]
+     */
+    public function getDepUsrCars(): Collection
+    {
+        return $this->depUsrCars;
+    }
+
+    public function addDepUsrCar(DepUsrCar $depUsrCar): self
+    {
+        if (!$this->depUsrCars->contains($depUsrCar)) {
+            $this->depUsrCars[] = $depUsrCar;
+            $depUsrCar->setUsuario($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDepUsrCar(DepUsrCar $depUsrCar): self
+    {
+        if ($this->depUsrCars->contains($depUsrCar)) {
+            $this->depUsrCars->removeElement($depUsrCar);
+            // set the owning side to null (unless already changed)
+            if ($depUsrCar->getUsuario() === $this) {
+                $depUsrCar->setUsuario(null);
+            }
+        }
+
+        return $this;
     }
 }

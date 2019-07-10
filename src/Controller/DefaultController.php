@@ -19,12 +19,4 @@ class DefaultController extends AbstractController
     }
 
 
-    /**
-     * @Route("/profile", name="profile")
-     */
-    public function profile(Request $request)
-    {
-        echo "aca";
-        exit;
-    }
 }
