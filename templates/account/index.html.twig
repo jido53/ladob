@@ -3,45 +3,58 @@
 {% block title %}Perfil{% endblock %}
 
 {% block body_centro %}
-    <form role="form" id="Usuario">
-        <div class="form-group">
 
-            <label for="exampleInputEmail1">
-                Usuario
-            </label>
-            <input class="form-control" type="text" placeholder="{{ app.user.usrCod }}" readonly>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Datos del Usuario</h6>
         </div>
+        <div class="card-body">
+            <form role="form" id="Usuario">
+                <div class="form-group">
 
-        <div class="form-group">
+                    <label for="exampleInputEmail1">
+                        Usuario
+                    </label>
+                    <input class="form-control" type="text" placeholder="{{ app.user.usrCod }}" readonly>
+                </div>
 
-            <label for="exampleInputEmail1">
-                Correo
-            </label>
-            <input class="form-control" type="text" placeholder="{{ app.user.usrEmail }}" readonly>
+                <div class="form-group">
+
+                    <label for="exampleInputEmail1">
+                        Correo
+                    </label>
+                    <input class="form-control" type="text" placeholder="{{ app.user.usrEmail }}" readonly>
+                </div>
+                <div class="form-group">
+
+                    <label for="exampleInputPassword1">
+                        Nombre
+                    </label>
+                    <input class="form-control" type="text" placeholder="{{ app.user.usrNombre }}" readonly>
+                </div>
+
+                <div class="checkbox">
+
+                    <label>
+                        <input type="checkbox" checked="{{ app.user.usrHabil }}"disabled/> Habilitado
+                    </label>
+                </div>
+
+            </form>
         </div>
-        <div class="form-group">
+    </div>
 
-            <label for="exampleInputPassword1">
-                Nombre
-            </label>
-            <input class="form-control" type="text" placeholder="{{ app.user.usrNombre }}" readonly>
-        </div>
 
-        <div class="checkbox">
 
-            <label>
-                <input type="checkbox" checked="{{ app.user.usrHabil }}"disabled/> Habilitado
-            </label>
-        </div>
+    <div class="alert alert-info">
 
-    </form>
-
+    </div>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
-        {#<div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-        </div>#}
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Dependencia Disponibles</h6>
+        </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="listado" width="100%" cellspacing="0">
@@ -49,6 +62,7 @@
                     <tr>
                         <th scope="col">Dependencia</th>
                         <th scope="col">Cargo</th>
+                        <th scope="col"></th>
 
 
                     </tr>
@@ -60,6 +74,12 @@
 
                             <td>{{ a.dependencia.depDescr }}</td>
                             <td>{{ a.cargo.carDescr }}</td>
+                            <td>
+                                <div class="custom-control form-check custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="{{ a.dependencia.depID }}{{ a.cargo.carId }}">
+                                    <label class="custom-control-label" for="{{ a.dependencia.depID }}{{ a.cargo.carId }}"></label>
+                                </div>
+                            </td>
 
                         </tr>
                     {% endfor %}

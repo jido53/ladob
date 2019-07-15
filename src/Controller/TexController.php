@@ -33,7 +33,6 @@ class TexController extends AbstractController
 
         }
 
-
         return $this->render('tex/list.html.twig',[
 
             'texs'=>$tex,

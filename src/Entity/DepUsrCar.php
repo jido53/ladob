@@ -42,7 +42,7 @@ class DepUsrCar
 
     /**
      * @ORM\Id()
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="string")
      */
 
     private $duc_fecdesde;
@@ -120,9 +120,9 @@ class DepUsrCar
         return $this;
     }
 
-    public function getDucFecdesde(): ?\DateTimeInterface
+    public function getDucFecdesde(): ?string
     {
-        return $this->duc_fecdesde;
+        return $this->duc_fecdesde->format('Y-m.d');
     }
 
     public function getDucDefault(): ?int
