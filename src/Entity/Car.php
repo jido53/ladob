@@ -58,6 +58,10 @@ class Car
     {
         $this->depUsrCars = new ArrayCollection();
     }
+    public function __toString()
+    {
+        return $this->getCarDescr();
+    }
 
     public function getCarId(): ?int
     {

@@ -41,12 +41,26 @@
                 </div>
 
             </form>
+            {{ form_start(ducForm) }}
+            {{ form_row(ducForm.dependencia, {
+                label: 'Dependencia',
+                disabled: true
+            }) }}
+
+            {{ form_row(ducForm.cargo, {
+                label: 'Cargo',
+                disabled: true
+            }) }}
+
+
+{#            {{ form_end(ducForm) }}#}
+
         </div>
     </div>
 
 
 
-    <div class="alert alert-info">
+    <div>
 
     </div>
 
@@ -62,7 +76,7 @@
                     <tr>
                         <th scope="col">Dependencia</th>
                         <th scope="col">Cargo</th>
-                        <th scope="col"></th>
+                        <th scope="col">Cambiar Perfil</th>
 
 
                     </tr>
@@ -75,16 +89,20 @@
                             <td>{{ a.dependencia.depDescr }}</td>
                             <td>{{ a.cargo.carDescr }}</td>
                             <td>
-                                <div class="custom-control form-check custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="{{ a.dependencia.depID }}{{ a.cargo.carId }}">
-                                    <label class="custom-control-label" for="{{ a.dependencia.depID }}{{ a.cargo.carId }}"></label>
-                                </div>
+{#                                <div class="form-check">#}
+{#                                    <input class="form-check-input position-static" type="radio" name="blankRadio" id="{{ a.dependencia.depID }}_{{ a.cargo.carId }}" value="{{ a.dependencia.depID }}_{{ a.cargo.carId }}" aria-label="...">#}
+{#                                </div>#}
+                               <a href="{{ path('set_duc', {'d': a.dependencia.depID , 'c': a.cargo.carId})}}"> <i class="fas fa-fw fa-user-check"></i></a>
+
                             </td>
 
                         </tr>
                     {% endfor %}
+
                     </tbody>
+
                 </table>
+
             </div>
         </div>
     </div>

@@ -78,7 +78,10 @@ class User implements UserInterface
         $this->depUsrCars = new ArrayCollection();
     }
 
-
+    public function __toString()
+    {
+       return $this->getUsrCod();
+    }
 
     public function getId(): ?int
     {
@@ -97,7 +100,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getUsrEmail()
+    public function getUsrEmail(): ?string
     {
         return $this->usr_email;
     }

@@ -61,13 +61,13 @@ class DepUsrCar
 
     private $duc_ws;
 
-    public function __construct($dep_id, $usr_id, $car_id, $duc_fecdesde)
-    {
-        $this->dependencia = $dep_id;
-        $this->usuario = $usr_id;
-        $this->cargo = $car_id;
-        $this->duc_fecdesde = $duc_fecdesde ;
-    }
+//    public function __construct($dep_id, $usr_id, $car_id, $duc_fecdesde)
+//    {
+//        $this->dependencia = $dep_id;
+//        $this->usuario = $usr_id;
+//        $this->cargo = $car_id;
+//        $this->duc_fecdesde = $duc_fecdesde ;
+//    }
 
 
 
@@ -122,7 +122,7 @@ class DepUsrCar
 
     public function getDucFecdesde(): ?string
     {
-        return $this->duc_fecdesde->format('Y-m.d');
+        return $this->duc_fecdesde;
     }
 
     public function getDucDefault(): ?int
