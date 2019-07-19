@@ -54,6 +54,7 @@ class AccountController extends AbstractController
 
     /**
      * @Route("/set_duc/{d}/{c}", name="set_duc")
+     * //seteo la Dependencia, el cargo y el perfil. El perfil lo cargo en el los roles del usuario.
      */
     public function setDuc($d,$c)
     {
@@ -68,6 +69,7 @@ class AccountController extends AbstractController
         ]);
 
         $this->session->set('perfil', $dup->getPerfil()->getPflDescr());
+        dump($this->getUser()->getRoles());die;
 
         $this->addFlash('success', 'Se ha cambiado el perfil.');
 

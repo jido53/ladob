@@ -4,7 +4,9 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -13,6 +15,16 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface
 {
+
+    private $session;
+
+
+    public function __construct(SessionInterface $session)
+    {
+        $this->session = $session;
+        $this->depUsrCars = new ArrayCollection();
+
+    }
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -73,10 +85,10 @@ class User implements UserInterface
      */
     private $depUsrCars;
 
-    public function __construct()
-    {
-        $this->depUsrCars = new ArrayCollection();
-    }
+//    public function __construct()
+//    {
+//        $this->depUsrCars = new ArrayCollection();
+//    }
 
     public function __toString()
     {
@@ -191,6 +203,22 @@ class User implements UserInterface
         //$roles = $this->roles;
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
+        if (!is_null($this->session) && $this->session->has('perfil') ){
+        $roles[] = $this->session->get('perfil');
+        }
+        return array_unique($roles);
+    }
+
+    /**
+     * @param $perfil
+     * @return array
+     * agrego el perfil al array de roles
+     */
+    public function addRoles($perfil): array
+    {
+        //$roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = $perfil;
 
         return array_unique($roles);
     }
