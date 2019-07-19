@@ -4,6 +4,7 @@ namespace App\Controller;
 
 
 use App\Entity\DepUsrCar;
+use App\Entity\DepUsrPfl;
 use App\Form\DepUsrCarFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
@@ -28,7 +29,7 @@ class AccountController extends AbstractController
     /**
      * @Route("/account", name="account")
      */
-    public function index(LoggerInterface $logger,Request $request)
+    public function index()
     {
 
 
@@ -39,16 +40,12 @@ class AccountController extends AbstractController
             'cargo'=> $this->session->get('cargo'),
         ]);
 
-        //dump($duc);die;
+
+
+
+
         $form = $this->createForm(DepUsrCarFormType::class,$duc);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            dump($form->getData());die;
-            $duc = $form->getData();
-            $this->session->set('dependencia', $duc['dependencia']);
-            $this->session->set('cargo', $duc['cargo']);
-            $this->addFlash('success', 'Se ha cambiado el perfil.');
-        }
+
 
         return $this->render('account/index.html.twig', [
             'ducForm' => $form->createView()
@@ -62,6 +59,16 @@ class AccountController extends AbstractController
     {
         $this->session->set('dependencia', $d);
         $this->session->set('cargo', $c);
+
+        $dup = $this->em->getRepository(DepUsrPfl::class)->findOneBy([
+
+            'usuario'=>$this->getUser()->getId(),
+            'dependencia'=> $this->session->get('dependencia'),
+
+        ]);
+
+        $this->session->set('perfil', $dup->getPerfil()->getPflDescr());
+
         $this->addFlash('success', 'Se ha cambiado el perfil.');
 
         return $this->redirectToRoute('account');

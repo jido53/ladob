@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+
+    {{ parent() }}
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" >
+
+{% endblock %}
+{% block title %}Inicio{% endblock %}
+{% block body_centro %}
+
+
+    <div class="row">
+
+        <div class="col-lg-3">
+            <!-- Basic Card Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Entradas</h6>
+                </div>
+                <div class="card-body">
+                    The styling for this basic card example is created by using default Bootstrap utility classes. By using utility classes, the style of the card component can be easily modified with no need for any custom CSS!
+                </div>
+            </div>
+        </div>
+        <!-- Basic Card Example -->
+        <div class="col-lg-3">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Salidas</h6>
+                </div>
+                <div class="card-body">
+                    The styling for this basic card example is created by using default Bootstrap utility classes. By
+                    using utility classes, the style of the card component can be easily modified with no need for any
+                    custom CSS!
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-3">
+            <!-- Basic Card Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Actuaciones</h6>
+                </div>
+                <div class="card-body">
+                    The styling for this basic card example is created by using default Bootstrap utility classes. By
+                    using utility classes, the style of the card component can be easily modified with no need for any
+                    custom CSS!
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <!-- Basic Card Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Agenda</h6>
+                </div>
+                <div class="card-body">
+                    The styling for this basic card example is created by using default Bootstrap utility classes. By
+                    using utility classes, the style of the card component can be easily modified with no need for any
+                    custom CSS!
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+
+{% endblock %}
+{#
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script>
+        $(document).ready(function() {
+            $('#listado').DataTable();
+        } );
+    </script>
+{% endblock %}
+#}

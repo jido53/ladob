@@ -11,11 +11,12 @@ use Symfony\Component\Ldap;
 class DefaultController extends AbstractController
 {
     /**
-     * @Route("/", name="default")
+     * @Route("/", name="app_default")
      */
     public function index()
     {
-        return $this->redirectToRoute('app_login');
+//        return $this->redirectToRoute('app_login');
+        return $this->render('default/index.html.twig');
     }
 
 

@@ -3,6 +3,7 @@
 namespace App\Security;
 
 use App\Entity\DepUsrCar;
+use App\Entity\DepUsrPfl;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -95,11 +96,21 @@ class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
 
-        $depcar =$this->entityManager->getRepository(DepUsrCar::class)->findOneBy(['duc_default'=>1,'usuario' =>$this->session->get('usuario')]);
+        $duc =$this->entityManager->getRepository(DepUsrCar::class)->findOneBy(['duc_default'=>1,'usuario' =>$this->session->get('usuario')]);
 
-        //$session = new Session();
-        $this->session->set('dependencia', $depcar->getDependencia()->getDepId());
-        $this->session->set('cargo', $depcar->getCargo()->getCarId());
+
+        $this->session->set('dependencia', $duc->getDependencia()->getDepId());
+        $this->session->set('cargo', $duc->getCargo()->getCarId());
+
+
+        $dup = $this->entityManager->getRepository(DepUsrPfl::class)->findOneBy([
+
+            'usuario'=>$this->session->get('usuario'),
+            'dependencia'=> $this->session->get('dependencia'),
+
+        ]);
+
+        $this->session->set('perfil', $dup->getPerfil()->getPflId());
 
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);

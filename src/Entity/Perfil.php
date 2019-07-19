@@ -32,6 +32,11 @@ class Perfil
      */
     private $pfl_cod;
 
+    public function __toString()
+    {
+        return $this->getPflDescr();
+    }
+
     public function getPflId(): ?int
     {
         return $this->pfl_id;
