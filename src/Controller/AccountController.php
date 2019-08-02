@@ -6,15 +6,17 @@ namespace App\Controller;
 use App\Entity\DepUsrCar;
 use App\Entity\DepUsrPfl;
 use App\Form\DepUsrCarFormType;
+use App\Repository\DepUsrPflRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AccountController extends AbstractController
+class AccountController extends BaseController
 {
 
     private $session;
@@ -31,7 +33,7 @@ class AccountController extends AbstractController
      */
     public function index()
     {
-
+//        dump($this->getUser());die;
 
         $duc = $this->em->getRepository(DepUsrCar::class)->findOneBy([
 
@@ -53,6 +55,7 @@ class AccountController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_USER")
      * @Route("/set_duc/{d}/{c}", name="set_duc")
      * //seteo la Dependencia, el cargo y el perfil. El perfil lo cargo en el los roles del usuario.
      */
@@ -60,20 +63,29 @@ class AccountController extends AbstractController
     {
         $this->session->set('dependencia', $d);
         $this->session->set('cargo', $c);
-
-        $dup = $this->em->getRepository(DepUsrPfl::class)->findOneBy([
-
-            'usuario'=>$this->getUser()->getId(),
-            'dependencia'=> $this->session->get('dependencia'),
-
-        ]);
-
-        $this->session->set('perfil', $dup->getPerfil()->getPflDescr());
         dump($this->getUser()->getRoles());die;
+
 
         $this->addFlash('success', 'Se ha cambiado el perfil.');
 
         return $this->redirectToRoute('account');
+    }
+
+    public function setupPfl (DepUsrPflRepository $dup){
+
+        $dup =$dup->findBy([
+            "dependencia" => $this->session->get('dependencia'),
+            'usuario'=>$this->session->get('usuario'),
+
+        ]);
+
+        foreach ($dup as $perfil){
+            $roles[] = $perfil->getPerfil()->getPflDescr();
+        }
+
+        $this->getUser()->setRoles($roles);
+        dump($this->getUser()->getRoles());
+
     }
 
 

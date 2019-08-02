@@ -18,12 +18,7 @@ class DepUsrPfl
      */
     private $dependencia;
 
-    /**
-     * @ORM\Id()
-     * @ORM\ManyToOne(targetEntity="App\Entity\User")
-     * @ORM\JoinColumn(name="usr_id", referencedColumnName="usr_id")
-     */
-    private $usuario;
+
 
     /**
      * @ORM\Id()
@@ -31,6 +26,13 @@ class DepUsrPfl
      * @ORM\JoinColumn(name="pfl_id", referencedColumnName="pfl_id")
      */
     private $perfil;
+
+    /**
+     * @ORM\Id()
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="perfil")
+     * @ORM\JoinColumn(name="usr_id", referencedColumnName="usr_id")
+     */
+    private $usuario;
 
 
 
@@ -46,17 +48,7 @@ class DepUsrPfl
         return $this;
     }
 
-    public function getUsuario(): ?User
-    {
-        return $this->usuario;
-    }
 
-    public function setUsuario(?User $usuario): self
-    {
-        $this->usuario = $usuario;
-
-        return $this;
-    }
 
     public function getPerfil(): ?Perfil
     {
@@ -66,6 +58,18 @@ class DepUsrPfl
     public function setPerfil(?Perfil $perfil): self
     {
         $this->perfil = $perfil;
+
+        return $this;
+    }
+
+    public function getUsuario(): ?User
+    {
+        return $this->usuario;
+    }
+
+    public function setUsuario(?User $usuario): self
+    {
+        $this->usuario = $usuario;
 
         return $this;
     }

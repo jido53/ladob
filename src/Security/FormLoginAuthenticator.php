@@ -31,13 +31,15 @@ class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
     private $csrfTokenManager;
     private $usr_id;
     private $session;
+    private  $security;
 
-    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, SessionInterface $session)
+    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, SessionInterface $session, Security $security)
     {
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->session = $session;
+        $this->security = $security;
 
     }
 
@@ -74,12 +76,13 @@ class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
         }
 
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['usr_cod' => $credentials['usr_cod']]);
-        $this->session->set('usuario', $user->getId());
-        //dump($user->getId());die;
         if (!$user) {
             // fail authentication with a custom error
             throw new CustomUserMessageAuthenticationException('Usr_cod could not be found.');
         }
+
+        $this->session->set('usuario', $user->getId());
+//        dump($this->session->get('usuario'));die;
 
         return $user;
     }
@@ -95,22 +98,13 @@ class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-
+        /*
+         * Busco las dependencias y cargo del usuario, la que es default y la asigno a la session
+         */
         $duc =$this->entityManager->getRepository(DepUsrCar::class)->findOneBy(['duc_default'=>1,'usuario' =>$this->session->get('usuario')]);
-
-
         $this->session->set('dependencia', $duc->getDependencia()->getDepId());
         $this->session->set('cargo', $duc->getCargo()->getCarId());
-
-
-        $dup = $this->entityManager->getRepository(DepUsrPfl::class)->findOneBy([
-
-            'usuario'=>$this->session->get('usuario'),
-            'dependencia'=> $this->session->get('dependencia'),
-
-        ]);
-
-        $this->session->set('perfil', $dup->getPerfil()->getPflId());
+        $this->session->set('_is_dynamic_role_auth', 'true');
 
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);

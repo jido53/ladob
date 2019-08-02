@@ -4,9 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -16,13 +14,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class User implements UserInterface
 {
 
-    private $session;
-
-
-    public function __construct(SessionInterface $session)
+    public function __construct()
     {
-        $this->session = $session;
+
         $this->depUsrCars = new ArrayCollection();
+        $this->perfil = new ArrayCollection();
 
     }
     /**
@@ -40,7 +36,10 @@ class User implements UserInterface
 //    /**
 //     * @ORM\Column(type="json")
 //     */
-//    private $roles = [];
+//    /**
+//     * @ORM\OneToMany(targetEntity="App\Entity\DepUsrPfl", mappedBy="usuario")
+//     */
+//    private $roles;
 //
 //    /**
 //     * @var string The hashed password
@@ -85,10 +84,12 @@ class User implements UserInterface
      */
     private $depUsrCars;
 
-//    public function __construct()
-//    {
-//        $this->depUsrCars = new ArrayCollection();
-//    }
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\DepUsrPfl", mappedBy="usuario")
+     */
+    private $perfil;
+
+
 
     public function __toString()
     {
@@ -203,25 +204,11 @@ class User implements UserInterface
         //$roles = $this->roles;
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
-        if (!is_null($this->session) && $this->session->has('perfil') ){
-        $roles[] = $this->session->get('perfil');
-        }
-        return array_unique($roles);
-    }
-
-    /**
-     * @param $perfil
-     * @return array
-     * agrego el perfil al array de roles
-     */
-    public function addRoles($perfil): array
-    {
-        //$roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = $perfil;
 
         return array_unique($roles);
     }
+
+
 
     public function setRoles(array $roles): self
     {
@@ -287,6 +274,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($depUsrCar->getUsuario() === $this) {
                 $depUsrCar->setUsuario(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|DepUsrPfl[]
+     */
+    public function getPerfil(): Collection
+    {
+        return $this->perfil;
+    }
+
+    public function addPerfil(DepUsrPfl $perfil): self
+    {
+        if (!$this->perfil->contains($perfil)) {
+            $this->perfil[] = $perfil;
+            $perfil->setUsuario($this);
+        }
+
+        return $this;
+    }
+
+    public function removePerfil(DepUsrPfl $perfil): self
+    {
+        if ($this->perfil->contains($perfil)) {
+            $this->perfil->removeElement($perfil);
+            // set the owning side to null (unless already changed)
+            if ($perfil->getUsuario() === $this) {
+                $perfil->setUsuario(null);
             }
         }
 
