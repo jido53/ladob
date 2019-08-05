@@ -5,16 +5,15 @@ namespace App\Controller;
 
 use App\Entity\DepUsrCar;
 use App\Entity\DepUsrPfl;
+
 use App\Form\DepUsrCarFormType;
 use App\Repository\DepUsrPflRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Psr\Container\ContainerInterface;
-use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+
+
 
 class AccountController extends BaseController
 {
@@ -22,10 +21,12 @@ class AccountController extends BaseController
     private $session;
     private $em;
 
+
     public function __construct(SessionInterface $session, EntityManagerInterface $em)
     {
         $this->session = $session;
         $this->em = $em;
+
     }
 
     /**
@@ -33,7 +34,7 @@ class AccountController extends BaseController
      */
     public function index()
     {
-//        dump($this->getUser());die;
+
 
         $duc = $this->em->getRepository(DepUsrCar::class)->findOneBy([
 
@@ -41,9 +42,6 @@ class AccountController extends BaseController
             'dependencia'=> $this->session->get('dependencia'),
             'cargo'=> $this->session->get('cargo'),
         ]);
-
-
-
 
 
         $form = $this->createForm(DepUsrCarFormType::class,$duc);
@@ -63,7 +61,23 @@ class AccountController extends BaseController
     {
         $this->session->set('dependencia', $d);
         $this->session->set('cargo', $c);
-        dump($this->getUser()->getRoles());die;
+
+        $dup = $this->entityManager->getRepository(DepUsrPfl::class)->findBy([
+
+            'usuario'=>$this->session->get('usuario'),
+            'dependencia'=> $this->session->get('dependencia'),
+
+        ]);
+
+        if (!empty($dup)) {
+            foreach ($dup as $perfil){
+                $roles[] = $perfil->getPerfil()->getPflDescr();
+
+            }
+
+            $user->setRoles($roles);
+        }
+
 
 
         $this->addFlash('success', 'Se ha cambiado el perfil.');
@@ -71,22 +85,7 @@ class AccountController extends BaseController
         return $this->redirectToRoute('account');
     }
 
-    public function setupPfl (DepUsrPflRepository $dup){
 
-        $dup =$dup->findBy([
-            "dependencia" => $this->session->get('dependencia'),
-            'usuario'=>$this->session->get('usuario'),
-
-        ]);
-
-        foreach ($dup as $perfil){
-            $roles[] = $perfil->getPerfil()->getPflDescr();
-        }
-
-        $this->getUser()->setRoles($roles);
-        dump($this->getUser()->getRoles());
-
-    }
 
 
 }

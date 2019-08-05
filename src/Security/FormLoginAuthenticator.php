@@ -22,6 +22,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
+
 class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
 {
     use TargetPathTrait;
@@ -32,14 +33,17 @@ class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
     private $usr_id;
     private $session;
     private  $security;
+    private $sur;
 
-    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, SessionInterface $session, Security $security)
+    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, 
+    CsrfTokenManagerInterface $csrfTokenManager, SessionInterface $session, Security $security)
     {
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->session = $session;
         $this->security = $security;
+  
 
     }
 
@@ -81,8 +85,9 @@ class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
             throw new CustomUserMessageAuthenticationException('Usr_cod could not be found.');
         }
 
-        $this->session->set('usuario', $user->getId());
-//        dump($this->session->get('usuario'));die;
+
+
+   //     dump($user->getId());die;
 
         return $user;
     }
@@ -92,23 +97,49 @@ class FormLoginAuthenticator extends AbstractFormLoginAuthenticator
         // Check the user's password or other credentials and return true or false
         // If there are no credentials to check, you can just return true
         //throw new \Exception('TODO: check the credentials inside '.__FILE__);
+   //     $user->setRoles(['Role_1']);
+   //     dump($user);die;
+         /*
+         * Busco las dependencias y cargo del usuario, la que es default y la asigno a la session
+         */
+        $this->session->set('usuario', $user->getId());
+        $duc =$this->entityManager->getRepository(DepUsrCar::class)->findOneBy(['duc_default'=>1,'usuario' =>$this->session->get('usuario')]);
+ //       dump($duc);die;
+        if (!empty($duc)) {
+            $this->session->set('dependencia', $duc->getDependencia()->getDepId());
+            $this->session->set('cargo', $duc->getCargo()->getCarId());
 
+            
+            $dup = $this->entityManager->getRepository(DepUsrPfl::class)->findBy([
+    
+                'usuario'=>$this->session->get('usuario'),
+                'dependencia'=> $this->session->get('dependencia'),
+    
+            ]);
+
+            if (!empty($dup)) {
+                foreach ($dup as $perfil){
+                    $roles[] = $perfil->getPerfil()->getPflDescr();
+    
+                }
+
+                $user->setRoles($roles);
+            }
+
+        }
+       // $user->setRoles(['Role_1']);
+       // dump($user);die;
         return true;
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-        /*
-         * Busco las dependencias y cargo del usuario, la que es default y la asigno a la session
-         */
-        $duc =$this->entityManager->getRepository(DepUsrCar::class)->findOneBy(['duc_default'=>1,'usuario' =>$this->session->get('usuario')]);
-        $this->session->set('dependencia', $duc->getDependencia()->getDepId());
-        $this->session->set('cargo', $duc->getCargo()->getCarId());
-        $this->session->set('_is_dynamic_role_auth', 'true');
+
 
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
+        
         return new RedirectResponse($this->urlGenerator->generate('tex_list'));
         //throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }

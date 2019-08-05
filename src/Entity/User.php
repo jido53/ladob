@@ -39,7 +39,7 @@ class User implements UserInterface
 //    /**
 //     * @ORM\OneToMany(targetEntity="App\Entity\DepUsrPfl", mappedBy="usuario")
 //     */
-//    private $roles;
+        private $roles;
 //
 //    /**
 //     * @var string The hashed password
@@ -201,7 +201,7 @@ class User implements UserInterface
      */
     public function getRoles(): array
     {
-        //$roles = $this->roles;
+        $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 

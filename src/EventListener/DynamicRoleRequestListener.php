@@ -16,6 +16,7 @@ use Symfony\Component\Security\Core\Role\SwitchUserRole;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Serializer\Encoder\EncoderInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncode;
+use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 
 class DynamicRoleRequestListener
 {
@@ -39,16 +40,17 @@ class DynamicRoleRequestListener
         $this->json = $json;
     }
 
-    public function onKernelRequest(GetResponseEvent $event)
+    public function onKernelController(FilterControllerEvent $event)
     {
-        if (HttpKernel::MASTER_REQUEST != $event->getRequestType()) {
-            // don't do anything if it's not the master request
-            return;
-        }
+
 //        dump($this->session->get('_is_dynamic_role_auth') === 'true');die;
         if ($this->session->has('_is_dynamic_role_auth') && $this->session->get('_is_dynamic_role_auth') === 'true') {
             //$roles = new Role("ROLE_NEW");
-            $roles = $this->security->getUser()->getRoles();
+      //      dump('llego hasta aca'); die;
+            $usuario_objeto = $this->security->getUser();
+            if ($usuario_objeto) {
+                $roles = $usuario_objeto->getRoles();
+           
             $dup = $this->dup->getRepository(DepUsrPfl::class)->findBy([
 
                 'usuario'=>$this->session->get('usuario'),
@@ -62,12 +64,14 @@ class DynamicRoleRequestListener
                     $roles[] = $perfil->getPerfil()->getPflDescr();
 
                 }
+                
             }
 //            dump($this->json->encode($roles,'json'));die;
-            $this->security->getUser()->setRoles(new Role(json_encode($roles)));
+         $this->security->getUser()->setRoles($roles);
 //            $this->security->getUser()->addRole($this->json->encode($roles,'json'));
-            dump($this->security->getUser());die;
-        }
+//           dump($this->security->getUser());die;
+
+        } }
 
 
         // ...
