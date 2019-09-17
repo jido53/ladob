@@ -88,6 +88,18 @@ class Per
 
     private $org_id;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Pfi", mappedBy="persona", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="per_id", referencedColumnName="per_id")
+     */
+    private $pfi;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\PfiAdi", mappedBy="persona", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="per_id", referencedColumnName="per_id")
+     */
+    private $pfiAdi;
+
     public function getPerId(): ?int
     {
         return $this->per_id;
@@ -216,6 +228,40 @@ class Per
     public function setOrgId(int $org_id): self
     {
         $this->org_id = $org_id;
+
+        return $this;
+    }
+
+    public function getPfi(): ?Pfi
+    {
+        return $this->pfi;
+    }
+
+    public function setPfi(Pfi $pfi): self
+    {
+        $this->pfi = $pfi;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $pfi->getPersona()) {
+            $pfi->setPersona($this);
+        }
+
+        return $this;
+    }
+
+    public function getPfiAdi(): ?PfiAdi
+    {
+        return $this->pfiAdi;
+    }
+
+    public function setPfiAdi(PfiAdi $pfiAdi): self
+    {
+        $this->pfiAdi = $pfiAdi;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $pfiAdi->getPersona()) {
+            $pfiAdi->setPersona($this);
+        }
 
         return $this;
     }

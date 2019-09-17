@@ -36,15 +36,30 @@ class PerRepository extends ServiceEntityRepository
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?Per
+
+    public function find_list_limit($value)
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
+            ->innerJoin('p.pfi','pfi')
+            ->innerJoin('p.pfiAdi','pfiAdi')
+            ->addSelect('pfi')
+            ->addSelect('pfiAdi')
+            ->setMaxResults($value)
             ->getQuery()
-            ->getOneOrNullResult()
+            ->getResult();
         ;
     }
-    */
+    public function find_list_with_criteria($criteria)
+    {
+        return $this->createQueryBuilder('p')
+            ->innerJoin('p.pfi','pfi')
+            ->innerJoin('p.pfiAdi','pfiAdi')
+            ->addSelect('pfi')
+            ->addSelect('pfiAdi')
+            ->addCriteria($criteria)
+            ->getQuery()
+            ->getResult();
+        ;
+    }
+
 }

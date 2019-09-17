@@ -10,9 +10,12 @@ use App\Form\DepUsrCarFormType;
 use App\Repository\DepUsrPflRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Guard\Token\PostAuthenticationGuardToken;
 
 
 class AccountController extends BaseController
@@ -22,10 +25,12 @@ class AccountController extends BaseController
     private $em;
 
 
+
     public function __construct(SessionInterface $session, EntityManagerInterface $em)
     {
         $this->session = $session;
         $this->em = $em;
+
 
     }
 
@@ -57,30 +62,11 @@ class AccountController extends BaseController
      * @Route("/set_duc/{d}/{c}", name="set_duc")
      * //seteo la Dependencia, el cargo y el perfil. El perfil lo cargo en el los roles del usuario.
      */
-    public function setDuc($d,$c)
+    public function setDuc($d,$c,Request $request)
     {
-        $this->session->set('dependencia', $d);
-        $this->session->set('cargo', $c);
-
-        $dup = $this->entityManager->getRepository(DepUsrPfl::class)->findBy([
-
-            'usuario'=>$this->session->get('usuario'),
-            'dependencia'=> $this->session->get('dependencia'),
-
-        ]);
-
-        if (!empty($dup)) {
-            foreach ($dup as $perfil){
-                $roles[] = $perfil->getPerfil()->getPflDescr();
-
-            }
-
-            $user->setRoles($roles);
-        }
 
 
 
-        $this->addFlash('success', 'Se ha cambiado el perfil.');
 
         return $this->redirectToRoute('account');
     }

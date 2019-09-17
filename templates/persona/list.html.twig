@@ -1,0 +1,76 @@
+{#Listado de Personas#}
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+
+    {{ parent() }}
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" >
+
+{% endblock %}
+{% block title %}Listado de Personas{% endblock %}
+{% block body_centro %}
+    <h1>Listado de Personas</h1>
+
+
+    <p>
+
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            <i class="fas fa-fw fa-search"></i>
+        </button>
+    </p>
+    <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+            {{ form_start(PersonaSearchForm) }}
+            {{ form_widget(PersonaSearchForm)}}
+
+            {{ form_end(PersonaSearchForm) }}
+        </div>
+    </div>
+
+
+
+
+
+    <table class="table  table-striped" id="listado">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Tipo Documento</th>
+            <th scope="col">Nro Documento</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Nro Consultante</th>
+
+        </tr>
+        </>
+        <tbody>
+
+        {% for per in personas %}
+            <tr>
+{#                <td><a href="{{ path('exp_show', {'exp_id': exp.getExpId()}) }}">{{ exp.getExpId() }}</a></td>#}
+                <td>{{ per.getPerId() }}</td>
+                <td>{{ per.getTdoId() }}</td>
+                <td>{{ per.getPerNrodoc() }}</td>
+                <td>{{ per.pfi.getPfiNom() }}</td>
+                <td>{{ per.pfi.getPfiApe() }}</td>
+                <td>{{ per.pfiAdi.getExpNCons() }}</td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script>
+        $(document).ready(function() {
+            $('#listado').DataTable();
+        } );
+    </script>
+{% endblock %}

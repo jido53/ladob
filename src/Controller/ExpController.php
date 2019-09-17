@@ -26,19 +26,32 @@ class ExpController extends AbstractController
      *
      * @Route("/exp", name="exp_list")
      */
-     public function list()
+     public function generic_list()
      {
       $exps = $this->getDoctrine()->getRepository(Exp::class)->findList();
 
       return $this->render('exp/list.html.twig', ['exps' => $exps]);
     }
 
+    /**
+     * Matches /exp exactly
+     *
+     * @Route("/exp/{tex}/{dep}", name="exp_especific_list")
+     */
+    public function especific_list()
+    {
+        $exps = $this->getDoctrine()->getRepository(Exp::class)->findList();
+
+        return $this->render('exp/list.html.twig', ['exps' => $exps]);
+    }
+
+
       /**
       * @Route("/exp/{exp_id}", name="exp_show")
       */
       public function edit()
       {
-
+            return null;
       }
     }
     ?>

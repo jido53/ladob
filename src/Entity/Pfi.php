@@ -12,7 +12,6 @@ class Pfi
 {
     /**
      *
-     * @ORM\Id()
      * @ORM\Column(type="string")
      */
 
@@ -20,6 +19,7 @@ class Pfi
 
 
     /**
+
      * @ORM\Column(type="string")
      */
 
@@ -69,6 +69,7 @@ class Pfi
 
 
     /**
+     * @ORM\Id()
      * @ORM\Column(type="integer")
      */
 
@@ -171,6 +172,12 @@ class Pfi
      */
 
     private $pfi_genero;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Per", inversedBy="pfi", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="per_id", referencedColumnName="per_id")
+     */
+    private $persona;
 
     public function getPfiNom(): ?string
     {
@@ -437,6 +444,25 @@ class Pfi
     public function setPfiGenero(int $pfi_genero): self
     {
         $this->pfi_genero = $pfi_genero;
+
+        return $this;
+    }
+
+    public function getPersona(): ?Per
+    {
+        return $this->persona;
+    }
+
+    public function setPersona(Per $persona): self
+    {
+        $this->persona = $persona;
+
+        return $this;
+    }
+
+    public function setPfiNom(string $pfi_nom): self
+    {
+        $this->pfi_nom = $pfi_nom;
 
         return $this;
     }

@@ -691,6 +691,12 @@ class PfiAdi
 
     private $otro_prog_social;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Per", inversedBy="pfiAdi", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="per_id", referencedColumnName="per_id")
+     */
+    private $persona;
+
     public function getPerId(): ?int
     {
         return $this->per_id;
@@ -1844,6 +1850,18 @@ class PfiAdi
     public function setOtroProgSocial(string $otro_prog_social): self
     {
         $this->otro_prog_social = $otro_prog_social;
+
+        return $this;
+    }
+
+    public function getPersona(): ?Per
+    {
+        return $this->persona;
+    }
+
+    public function setPersona(Per $persona): self
+    {
+        $this->persona = $persona;
 
         return $this;
     }
