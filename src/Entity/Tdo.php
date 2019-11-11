@@ -94,7 +94,10 @@ class Tdo
 
     private $tdo_descr_ws;
 
-
+    public function __toString()
+    {
+        return $this->getTdoDescr();
+    }
 
     public function getId(): ?int
     {

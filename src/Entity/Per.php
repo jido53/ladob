@@ -27,13 +27,6 @@ class Per
 
 
     /**
-     * @ORM\Column(type="integer")
-     */
-
-    private $tdo_id;
-
-
-    /**
      * @ORM\Column(type="string")
      */
 
@@ -100,6 +93,12 @@ class Per
      */
     private $pfiAdi;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Tdo")
+     * @ORM\JoinColumn(nullable=false,name="tdo_id", referencedColumnName="tdo_id")
+     */
+    private $tdo;
+
     public function getPerId(): ?int
     {
         return $this->per_id;
@@ -124,17 +123,7 @@ class Per
         return $this;
     }
 
-    public function getTdoId(): ?int
-    {
-        return $this->tdo_id;
-    }
 
-    public function setTdoId(int $tdo_id): self
-    {
-        $this->tdo_id = $tdo_id;
-
-        return $this;
-    }
 
     public function getPerNrodoc(): ?string
     {
@@ -262,6 +251,18 @@ class Per
         if ($this !== $pfiAdi->getPersona()) {
             $pfiAdi->setPersona($this);
         }
+
+        return $this;
+    }
+
+    public function getTdo(): ?Tdo
+    {
+        return $this->tdo;
+    }
+
+    public function setTdo(?Tdo $tdo): self
+    {
+        $this->tdo = $tdo;
 
         return $this;
     }

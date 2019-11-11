@@ -46,7 +46,7 @@ class DepController extends AbstractController
       
     // or render a template
     // in the template, print things with {{ product.name }}
-    // return $this->render('product/show.html.twig', ['product' => $product]);
+    // return $this->render('product/_datos_basicos.html.twig', ['product' => $product]);
     }
 }
 ?>

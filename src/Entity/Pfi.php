@@ -26,11 +26,11 @@ class Pfi
     private $pfi_ape;
 
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-
-    private $sex_id;
+//    /**
+//     * @ORM\Column(type="integer")
+//     */
+//
+//    private $sex_id;
 
 
     /**
@@ -47,11 +47,11 @@ class Pfi
     private $eci_id;
 
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-
-    private $nci_id;
+//    /**
+//     * @ORM\Column(type="integer")
+//     */
+//
+//    private $nci_id;
 
 
     /**
@@ -178,6 +178,18 @@ class Pfi
      * @ORM\JoinColumn(name="per_id", referencedColumnName="per_id")
      */
     private $persona;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Sexo")
+     * @ORM\JoinColumn(name="sex_id", referencedColumnName="sex_id")
+     */
+    private $genero;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Pais")
+     * @ORM\JoinColumn(name="nci_id", referencedColumnName="pai_id")
+     */
+    private $nacionalidad;
 
     public function getPfiNom(): ?string
     {
@@ -463,6 +475,30 @@ class Pfi
     public function setPfiNom(string $pfi_nom): self
     {
         $this->pfi_nom = $pfi_nom;
+
+        return $this;
+    }
+
+    public function getGenero(): ?Sexo
+    {
+        return $this->genero;
+    }
+
+    public function setGenero(?Sexo $genero): self
+    {
+        $this->genero = $genero;
+
+        return $this;
+    }
+
+    public function getNacionalidad(): ?Pais
+    {
+        return $this->nacionalidad;
+    }
+
+    public function setNacionalidad(?Pais $nacionalidad): self
+    {
+        $this->nacionalidad = $nacionalidad;
 
         return $this;
     }

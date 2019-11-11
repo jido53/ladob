@@ -1,0 +1,21 @@
+{#Datos Basicos de una Legajo#}
+
+{#    {{ dump(per) }}#}
+<div class="card" style="width: 18rem;">
+    <div class="card-header">
+        <li class="list-group-item">Tipo: {{ exp.getTexId.getTexDescr() }} </li>
+    </div>
+    <ul class="list-group list-group-flush">
+
+
+        <li class="list-group-item">CUIJ: {{ per.getTdo() }} {{ per.getPerNrodoc() }}</li>
+
+        <li class="list-group-item">Caratula: {{ exp.getExpCarat() }}</li>
+        <li class="list-group-item">Fecha Creación: {{ exp.getExpFecreg()|date("m/d/Y")  }} </li>
+        <li class="list-group-item">Estado: {{ exp.est.estdescr() }} </li>
+        <li class="list-group-item">Estado Procesal: {{ exp.getEpr.getEstDescr() }} </li>
+
+
+
+    </ul>
+</div>

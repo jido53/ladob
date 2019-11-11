@@ -1,0 +1,25 @@
+{#Persona#}
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+
+    {{ parent() }}
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" >
+
+{% endblock %}
+{% block title %}Vista de la persona{% endblock %}
+{% block body_centro %}
+    {% include 'persona/_datos_basicos.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script>
+        $(document).ready(function() {
+            $('#listado').DataTable();
+        } );
+    </script>
+{% endblock %}

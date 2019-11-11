@@ -87,32 +87,46 @@ class PersonaController extends Controller
             'PersonaSearchForm' => $form->createView()
             ]);
 
-    }
 
+
+    }
 
 
     /**
-     * Replaces an array key and preserves the original
-     * order.
-     *
-     * @param $array The array in question.
-     * @param $oldKey The key that you want to replace.
-     * @param $newKey The name of the new key.
-     *
-     * @return array
+     * @Route("/persona_basico/{per_id}", name="persona_basico")
      */
-    function replaceArrayKey($array, $oldKey, $newKey){
-        //If the old key doesn't exist, we can't replace it...
-        if(!isset($array[$oldKey])){
-            return $array;
-        }
-        //Get a list of all keys in the array.
-        $arrayKeys = array_keys($array);
-        //Replace the key in our $arrayKeys array.
-        $oldKeyIndex = array_search($oldKey, $arrayKeys);
-        $arrayKeys[$oldKeyIndex] = $newKey;
-        //Combine them back into one array.
-        $newArray =  array_combine($arrayKeys, $array);
-        return $newArray;
+    public function persona_basico ($per_id)
+    {
+        $persona = $this->getDoctrine()->getRepository(Per::class)->findOneBy(['per_id'=>$per_id]);//   find_one_by_id($per_id);
+
+        return $this->render('persona/show.html.twig', [
+            'per' => $persona,
+        ]);
     }
+
+//
+//    /**
+//     * Replaces an array key and preserves the original
+//     * order.
+//     *
+//     * @param $array The array in question.
+//     * @param $oldKey The key that you want to replace.
+//     * @param $newKey The name of the new key.
+//     *
+//     * @return array
+//     */
+//    function replaceArrayKey($array, $oldKey, $newKey){
+//        //If the old key doesn't exist, we can't replace it...
+//        if(!isset($array[$oldKey])){
+//            return $array;
+//        }
+//        //Get a list of all keys in the array.
+//        $arrayKeys = array_keys($array);
+//        //Replace the key in our $arrayKeys array.
+//        $oldKeyIndex = array_search($oldKey, $arrayKeys);
+//        $arrayKeys[$oldKeyIndex] = $newKey;
+//        //Combine them back into one array.
+//        $newArray =  array_combine($arrayKeys, $array);
+//        return $newArray;
+//    }
 }

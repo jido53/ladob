@@ -6,6 +6,8 @@ use App\Entity\Per;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
+
+
 /**
  * @method Per|null find($id, $lockMode = null, $lockVersion = null)
  * @method Per|null findOneBy(array $criteria, array $orderBy = null)
@@ -61,5 +63,21 @@ class PerRepository extends ServiceEntityRepository
             ->getResult();
         ;
     }
+    public function find_one_by_id($value)
+    {
+
+        return $this->createQueryBuilder('p')
+            ->innerJoin('p.pfi','pfi')
+            ->innerJoin('p.pfiAdi','pfiAdi')
+            ->addSelect('pfi')
+            ->addSelect('pfiAdi')
+            ->where('p.per_id = :per_id')
+            ->setParameter('per_id', $value)
+            ->getQuery()
+            ->getResult();
+
+
+    }
+
 
 }

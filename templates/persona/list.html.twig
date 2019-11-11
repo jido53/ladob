@@ -49,8 +49,8 @@
         {% for per in personas %}
             <tr>
 {#                <td><a href="{{ path('exp_show', {'exp_id': exp.getExpId()}) }}">{{ exp.getExpId() }}</a></td>#}
-                <td>{{ per.getPerId() }}</td>
-                <td>{{ per.getTdoId() }}</td>
+                <td><a href="{{ path('persona_basico', {'per_id': per.getPerId()}) }}">{{ per.getPerId() }}</td>
+                <td>{{ per.getTdo() }}</td>
                 <td>{{ per.getPerNrodoc() }}</td>
                 <td>{{ per.pfi.getPfiNom() }}</td>
                 <td>{{ per.pfi.getPfiApe() }}</td>
