@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -98,6 +100,17 @@ class Per
      * @ORM\JoinColumn(nullable=false,name="tdo_id", referencedColumnName="tdo_id")
      */
     private $tdo;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ExpPer", mappedBy="persona")
+     * @ORM\JoinColumn(name="per_id", referencedColumnName="per_id")
+     */
+    private $expPers;
+
+    public function __construct()
+    {
+        $this->expPers = new ArrayCollection();
+    }
 
     public function getPerId(): ?int
     {
@@ -263,6 +276,37 @@ class Per
     public function setTdo(?Tdo $tdo): self
     {
         $this->tdo = $tdo;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ExpPer[]
+     */
+    public function getExpPers(): Collection
+    {
+        return $this->expPers;
+    }
+
+    public function addExpPer(ExpPer $expPer): self
+    {
+        if (!$this->expPers->contains($expPer)) {
+            $this->expPers[] = $expPer;
+            $expPer->setPersona($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExpPer(ExpPer $expPer): self
+    {
+        if ($this->expPers->contains($expPer)) {
+            $this->expPers->removeElement($expPer);
+            // set the owning side to null (unless already changed)
+            if ($expPer->getPersona() === $this) {
+                $expPer->setPersona(null);
+            }
+        }
 
         return $this;
     }

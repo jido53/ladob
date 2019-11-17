@@ -11,6 +11,11 @@
 {% block title %}Vista de la persona{% endblock %}
 {% block body_centro %}
     {% include 'persona/_datos_basicos.html.twig' %}
+
+    {% for exp in per.getExpPers() %}
+        {% include 'exp/_datos_basicos.html.twig' %}}
+    {% endfor %}
+
 {% endblock %}
 
 {% block javascripts %}

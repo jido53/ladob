@@ -659,9 +659,16 @@ class Exp
      */
     private $expTtrOju;
 
+     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ExpPer", mappedBy="expediente")
+     * @ORM\JoinColumn(name="exp_id", referencedColumnName="exp_id")
+     */
+    private $expPers;
+
     public function __construct()
     {
         $this->expTtrOju = new ArrayCollection();
+        $this->expPers = new ArrayCollection();
     }
 
 
@@ -1980,6 +1987,38 @@ class Exp
 
         return $this;
     }
+
+    /**
+     * @return Collection|ExpPer[]
+     */
+    public function getExpPers(): Collection
+    {
+        return $this->expPers;
+    }
+
+    public function addExpPer(ExpPer $expPer): self
+    {
+        if (!$this->expPers->contains($expPer)) {
+            $this->expPers[] = $expPer;
+            $expPer->setExpediente($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExpPer(ExpPer $expPer): self
+    {
+        if ($this->expPers->contains($expPer)) {
+            $this->expPers->removeElement($expPer);
+            // set the owning side to null (unless already changed)
+            if ($expPer->getExpediente() === $this) {
+                $expPer->setExpediente(null);
+            }
+        }
+
+        return $this;
+    }
+
 
 
 

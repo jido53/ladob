@@ -102,6 +102,9 @@ class PersonaController extends Controller
         return $this->render('persona/show.html.twig', [
             'per' => $persona,
         ]);
+
+
+
     }
 
 //

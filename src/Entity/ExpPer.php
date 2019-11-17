@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,21 +12,21 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ExpPer
 {
-    /**
-     *
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-
-    private $exp_id;
-
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-
-    private $per_id;
+//    /**
+//     *
+//     * @ORM\Id()
+//     * @ORM\GeneratedValue()
+//     * @ORM\Column(type="integer")
+//     */
+//
+//    private $exp_id;
+//
+//
+//    /**
+//     * @ORM\Column(type="integer")
+//     */
+//
+//    private $per_id;
 
 
     /**
@@ -305,6 +307,27 @@ class ExpPer
      */
 
     private $detenido;
+
+    /**
+     * @ORM\Id()
+     * @ORM\ManyToOne(targetEntity="App\Entity\Exp", inversedBy="expPers")
+     * @ORM\JoinColumn(nullable=false, name="exp_id", referencedColumnName="exp_id")
+     */
+    private $expediente;
+
+
+
+    /**
+     * @ORM\Id()
+     * @ORM\ManyToOne(targetEntity="App\Entity\Per", inversedBy="expPers")
+     * @ORM\JoinColumn(nullable=false, name="per_id", referencedColumnName="per_id")
+     */
+    private $persona;
+
+    public function __construct()
+    {
+        $this->expPers = new ArrayCollection();
+    }
 
     public function getExpId(): ?int
     {
@@ -802,6 +825,32 @@ class ExpPer
 
         return $this;
     }
+
+    public function getExpediente(): ?self
+    {
+        return $this->expediente;
+    }
+
+    public function setExpediente(?self $expediente): self
+    {
+        $this->expediente = $expediente;
+
+        return $this;
+    }
+
+    public function getPersona(): ?Per
+    {
+        return $this->persona;
+    }
+
+    public function setPersona(?Per $persona): self
+    {
+        $this->persona = $persona;
+
+        return $this;
+    }
+
+
 
 
 }
